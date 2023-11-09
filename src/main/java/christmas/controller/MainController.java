@@ -5,10 +5,18 @@ import christmas.view.InputView;
 
 public class MainController {
     public void excute() {
-        setVisitDate();
+        visitDateController();
     }
 
-    private static void setVisitDate() {
-        VisitDate visitDate = new VisitDate(InputView.readDate());
+    private static void visitDateController() {
+        boolean isValid = false;
+        while(!isValid) {
+            try {
+                VisitDate visitDate = new VisitDate(InputView.readDate());
+                isValid = true;
+            } catch (IllegalArgumentException e) {
+                System.out.println(e.getMessage());
+            }
+        }
     }
 }
