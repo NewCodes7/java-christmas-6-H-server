@@ -1,16 +1,13 @@
 package christmas.model.event;
 
 import christmas.constant.MenuInfo;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
 
 public class GiftPromotion {
-    public boolean isSatisfied(int totalOrderAmount) {
-        boolean offerGift = false;
+    public int setGift(int totalOrderAmount) {
+        int giftPrice = 0;
         if (totalOrderAmount >= 120000) {
-            offerGift = true;
+            giftPrice = MenuInfo.CHAMPAGNE.getPrice();
         }
-        return offerGift;
+        return giftPrice;
     }
 }

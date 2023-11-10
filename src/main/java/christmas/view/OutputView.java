@@ -17,6 +17,7 @@ public class OutputView {
     }
 
     public static void printTotalOrderAmount(int amount) {
+        lineBreak();
         System.out.println("<할인 전 총주문 금액>");
         System.out.println(formatCurrency(amount));
     }
@@ -26,10 +27,11 @@ public class OutputView {
         return currencyFormatter.format(amount);
     }
 
-    public static void printGift(boolean offerGift) {
+    public static void printGift(int giftPrice) {
+        lineBreak();
         System.out.println("<증정 메뉴>");
         String message = "없음";
-        if (offerGift) {
+        if (giftPrice == 250000) {
             message = "샴페인 1개";
         }
         System.out.println(message);

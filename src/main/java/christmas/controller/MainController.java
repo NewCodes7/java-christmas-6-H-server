@@ -16,16 +16,17 @@ public class MainController {
     public void excute() {
         int date = visitDateController();
         Map<String, Integer> orderedMenu = orderMenuController();
-        int discountDDay = discountChristmasDDayConroller(date);
+        int discountDDay = discountChristmasDDayConroller(date); // 0원일 수도 있음. (이벤트 미적용)
         int discountWeek = discountWeekConroller(orderedMenu, date);
-        int discountSpecial = discountSpecialController(date);
+        int discountSpecial = discountSpecialController(date); // 0원일 수도 있음. (이벤트 미적용)
 
         int totalOrderAmount = totalOrderCalculator(orderedMenu);
-        boolean offerGift = giftPromotionController(totalOrderAmount);
+        int giftPrice = giftPromotionController(totalOrderAmount); // 0원일 수도 있음. (이벤트 미적용)
 
         OutputView.printOrderedMenu(orderedMenu);
         OutputView.printTotalOrderAmount(totalOrderAmount);
-        OutputView.printGift(offerGift);
+        OutputView.printGift(giftPrice);
+
     }
 
     private static int visitDateController() {
@@ -69,9 +70,9 @@ public class MainController {
         return discountSpecial.setDiscount(date);
     }
 
-    private static boolean giftPromotionController(int totalOrderAmount) {
+    private static int giftPromotionController(int totalOrderAmount) {
         GiftPromotion giftPromotion = new GiftPromotion();
-        return giftPromotion.isSatisfied(totalOrderAmount);
+        return giftPromotion.setGift(totalOrderAmount);
     }
 
     private static int totalOrderCalculator(Map<String, Integer> orderedMenu) {
