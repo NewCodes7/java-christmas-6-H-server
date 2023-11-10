@@ -8,6 +8,7 @@ import christmas.model.customer.OrderMenu;
 import christmas.model.TotalOrderCalculator;
 import christmas.model.customer.VisitDate;
 import christmas.view.InputView;
+import christmas.view.OutputView;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -21,6 +22,8 @@ public class MainController {
 
         int totalOrderAmount = totalOrderCalculator(orderedMenu);
         boolean offerGift = giftPromotionController(totalOrderAmount);
+
+        OutputView.printOrderedMenu(orderedMenu);
     }
 
     private static int visitDateController() {
