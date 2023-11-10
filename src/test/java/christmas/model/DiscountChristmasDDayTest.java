@@ -10,7 +10,7 @@ import org.junit.jupiter.params.provider.ValueSource;
 class DiscountChristmasDDayTest {
     @Test
     void 크리스마스_디데이_할인_미적용() {
-        assertThat(new DiscountChristmasDDay(26).calculate()).isEqualTo(0);
+        assertThat(new DiscountChristmasDDay().calculate(26)).isEqualTo(0);
     }
 
     @ParameterizedTest
@@ -19,7 +19,7 @@ class DiscountChristmasDDayTest {
         int expectedDiscount = getExpectedDiscount(date);
         int actualDiscount = 0;
 
-        actualDiscount = new DiscountChristmasDDay(date).calculate();
+        actualDiscount = new DiscountChristmasDDay().calculate(date);
 
         assertThat(actualDiscount).isEqualTo(expectedDiscount);
     }

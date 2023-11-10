@@ -1,21 +1,15 @@
 package christmas.model;
 
 public class DiscountChristmasDDay {
-    private static int date;
-
-    public DiscountChristmasDDay(int date) {
-        DiscountChristmasDDay.date = date;
-    }
-
-    private boolean isChristmasDDayDiscountActive() {
-        return date >= 1 && date <= 25;
-    }
-
-    public int calculate() {
+    public int calculate(int date) {
         int discount = 0;
-        if(isChristmasDDayDiscountActive()){
+        if(isChristmasDDayDiscountActive(date)){
             discount = 1000 + 100*(date-1);
         }
         return discount;
+    }
+
+    private boolean isChristmasDDayDiscountActive(int date) {
+        return date >= 1 && date <= 25;
     }
 }

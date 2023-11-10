@@ -59,4 +59,24 @@ public enum MenuInfo {
         }
         return drinks;
     }
+
+    public static List<String> getMainNames() {
+        List<String> mains = new ArrayList<>();
+        for (MenuInfo menu : MenuInfo.values()) {
+            if (menu.getCategory().equals("메인")) {
+                mains.add(menu.getName());
+            }
+        }
+        return mains;
+    }
+
+    public static List<String> getDessertNames() {
+        List<String> desserts = new ArrayList<>();
+        for (MenuInfo menu : MenuInfo.values()) {
+            if (menu.getCategory().equals("디저트")) {
+                desserts.add(menu.getName());
+            }
+        }
+        return desserts;
+    }
 }

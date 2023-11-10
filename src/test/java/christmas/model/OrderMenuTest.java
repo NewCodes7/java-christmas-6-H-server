@@ -1,12 +1,24 @@
 package christmas.model;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.util.Map;
+import org.junit.jupiter.api.Order;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
 class OrderMenuTest {
+
+    @Test
+    void 주문메뉴_Map_저장_확인() {
+        Map<String, Integer> orderedMenu = new OrderMenu().setOrderMenu("타파스-1,크리스마스파스타-2");
+
+        assertThat(orderedMenu.get("타파스")).isEqualTo(1);
+        assertThat(orderedMenu.get("크리스마스파스타")).isEqualTo(2);
+    }
 
     @ParameterizedTest
     @ValueSource(strings = {"타파스1개,크리스마스파스타2개", "양송이스프2,해산물파스타1", "아무거나"})
