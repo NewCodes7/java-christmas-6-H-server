@@ -16,14 +16,14 @@ public class VisitDate {
     private static void validateIsInteger(String date) {
         try{
             Integer.parseInt(date);
-        } catch(IllegalArgumentException e) {
+        } catch (IllegalArgumentException e) {
             throw new IllegalArgumentException("[ERROR] 유효하지 않은 날짜입니다. 다시 입력해 주세요.");
         }
     }
 
     private static void validateIsNumberInRange(String date) {
         int number = Integer.parseInt(date);
-        if(number < 1 || number > 31) {
+        if (number < 1 || number > 31) {
             throw new IllegalArgumentException("[ERROR] 유효하지 않은 날짜입니다. 다시 입력해 주세요.");
         }
     }
