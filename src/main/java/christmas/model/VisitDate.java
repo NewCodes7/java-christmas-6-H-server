@@ -27,4 +27,12 @@ public class VisitDate {
             throw new IllegalArgumentException("[ERROR] 유효하지 않은 날짜입니다. 다시 입력해 주세요.");
         }
     }
+
+    public boolean isChristmasDDayDiscountActive() {
+        return date >= 1 && date <= 25;
+    }
+
+    public DiscountChristmasDDay createDiscountChristmasDDay() {
+        return new DiscountChristmasDDay(date);
+    }
 }

@@ -3,24 +3,26 @@ package christmas.controller;
 import christmas.model.OrderMenu;
 import christmas.model.VisitDate;
 import christmas.view.InputView;
-import org.junit.jupiter.api.Order;
 
 public class MainController {
     public void excute() {
-        visitDateController();
+        VisitDate visitDate = visitDateController();
         orderMenuController();
+        int dDayDiscount = discountChristmasDDayConroller(visitDate);
     }
 
-    private static void visitDateController() {
+    private static VisitDate visitDateController() {
+        VisitDate visitDate = null;
         boolean isValid = false;
         while (!isValid) {
             try {
-                VisitDate visitDate = new VisitDate(InputView.readDate());
+                visitDate = new VisitDate(InputView.readDate());
                 isValid = true;
             } catch (IllegalArgumentException e) {
                 System.out.println(e.getMessage());
             }
         }
+        return visitDate;
     }
 
     private static void orderMenuController() {
@@ -33,5 +35,13 @@ public class MainController {
                 System.out.println(e.getMessage());
             }
         }
+    }
+
+    private static int discountChristmasDDayConroller(VisitDate visitDate) {
+        int discount = 0;
+        if(visitDate.isChristmasDDayDiscountActive()) {
+            discount = visitDate.createDiscountChristmasDDay().calculate();
+        }
+        return discount;
     }
 }
