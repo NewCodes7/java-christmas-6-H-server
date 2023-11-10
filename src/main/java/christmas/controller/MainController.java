@@ -25,6 +25,7 @@ public class MainController {
 
         OutputView.printOrderedMenu(orderedMenu);
         OutputView.printTotalOrderAmount(totalOrderAmount);
+        OutputView.printGift(offerGift);
     }
 
     private static int visitDateController() {

@@ -26,6 +26,15 @@ public class OutputView {
         return currencyFormatter.format(amount);
     }
 
+    public static void printGift(boolean offerGift) {
+        System.out.println("<증정 메뉴>");
+        String message = "없음";
+        if (offerGift) {
+            message = "샴페인 1개";
+        }
+        System.out.println(message);
+    }
+
     public static void lineBreak() {
         System.out.print("\n");
     }
