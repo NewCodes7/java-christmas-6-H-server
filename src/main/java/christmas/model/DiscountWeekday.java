@@ -1,2 +1,5 @@
-package christmas.model;public class DiscountWeekDay {
+package christmas.model;
+
+public class DiscountWeekday {
+
 }

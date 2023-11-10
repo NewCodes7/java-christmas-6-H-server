@@ -1,28 +1,29 @@
 package christmas.controller;
 
+import christmas.model.DiscountChristmasDDay;
 import christmas.model.OrderMenu;
 import christmas.model.VisitDate;
 import christmas.view.InputView;
 
 public class MainController {
     public void excute() {
-        VisitDate visitDate = visitDateController();
+        int date = visitDateController();
         orderMenuController();
-        int dDayDiscount = discountChristmasDDayConroller(visitDate);
+        int discountDDay = discountChristmasDDayConroller(date);
+
     }
 
-    private static VisitDate visitDateController() {
-        VisitDate visitDate = null;
-        boolean isValid = false;
-        while (!isValid) {
+    private static int visitDateController() {
+        VisitDate visitDate = new VisitDate();
+        int date = 0;
+        while (date == 0) {
             try {
-                visitDate = new VisitDate(InputView.readDate());
-                isValid = true;
+                date = visitDate.setVisitDate(InputView.readDate());
             } catch (IllegalArgumentException e) {
                 System.out.println(e.getMessage());
             }
         }
-        return visitDate;
+        return date;
     }
 
     private static void orderMenuController() {
@@ -37,11 +38,10 @@ public class MainController {
         }
     }
 
-    private static int discountChristmasDDayConroller(VisitDate visitDate) {
-        int discount = 0;
-        if(visitDate.isChristmasDDayDiscountActive()) {
-            discount = visitDate.createDiscountChristmasDDay().calculate();
-        }
-        return discount;
+    private static int discountChristmasDDayConroller(int date) {
+        DiscountChristmasDDay discountChristmasDDay = new DiscountChristmasDDay(date);
+        return discountChristmasDDay.calculate();
     }
+
+
 }

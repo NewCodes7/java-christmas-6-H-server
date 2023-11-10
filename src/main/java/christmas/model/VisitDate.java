@@ -1,11 +1,14 @@
 package christmas.model;
 
+import java.util.Arrays;
+
 public class VisitDate {
     private static int date;
 
-    public VisitDate(String number) {
+    public int setVisitDate(String number) {
         validate(number);
         date = Integer.parseInt(number);
+        return date;
     }
 
     private static void validate(String date) {
@@ -28,11 +31,14 @@ public class VisitDate {
         }
     }
 
-    public boolean isChristmasDDayDiscountActive() {
-        return date >= 1 && date <= 25;
+
+
+    public boolean isWeekDay() {
+        Integer[] weekDay = {3, 4, 5, 6, 7};
+        return Arrays.asList(weekDay).contains(date % 7);
     }
 
-    public DiscountChristmasDDay createDiscountChristmasDDay() {
-        return new DiscountChristmasDDay(date);
+    public DiscountWeekday createDiscountWeekday() {
+        return new DiscountWeekday(date);
     }
 }
