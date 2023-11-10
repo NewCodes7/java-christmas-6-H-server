@@ -1,6 +1,7 @@
 package christmas.controller;
 
 import christmas.model.DiscountChristmasDDay;
+import christmas.model.DiscountSpecial;
 import christmas.model.DiscountWeek;
 import christmas.model.OrderMenu;
 import christmas.model.VisitDate;
@@ -14,6 +15,7 @@ public class MainController {
         Map<String, Integer> orderedMenu = orderMenuController();
         int discountDDay = discountChristmasDDayConroller(date);
         int discountWeek = discountWeekConroller(orderedMenu, date);
+        int discountSpecial = discountSpecialController(date);
     }
 
     private static int visitDateController() {
@@ -50,5 +52,10 @@ public class MainController {
     private static int discountWeekConroller(Map<String, Integer> orderedMenu, int date) {
         DiscountWeek discountWeek = new DiscountWeek();
         return discountWeek.setDiscount(orderedMenu, date);
+    }
+
+    private static int discountSpecialController(int date) {
+        DiscountSpecial discountSpecial = new DiscountSpecial();
+        return discountSpecial.setDiscount(date);
     }
 }
