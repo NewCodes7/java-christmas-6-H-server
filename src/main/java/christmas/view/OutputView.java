@@ -1,6 +1,7 @@
 package christmas.view;
 
 import java.text.DecimalFormat;
+import java.util.Arrays;
 import java.util.Map;
 
 public class OutputView {
@@ -31,10 +32,24 @@ public class OutputView {
         lineBreak();
         System.out.println("<증정 메뉴>");
         String message = "없음";
-        if (giftPrice == 250000) {
+        if (giftPrice == 25000) {
             message = "샴페인 1개";
         }
         System.out.println(message);
+    }
+
+    public static void printDiscountDetails(Integer[] details) {
+        lineBreak();
+        System.out.println("<혜택 내역>");
+        String[] message = {"크리스마스 디데이 할인: ", "평일 할인: ", "특별 할인: ", "증정 이벤트: "};
+        for (int i = 0; i<message.length; i++) {
+            if (details[i] != 0) {
+                System.out.println(message[i] + "-" + formatCurrency(details[i]));
+            }
+        }
+        if (Arrays.stream(details).allMatch(number -> number == 0)) {
+            System.out.println("없음");
+        }
     }
 
     public static void lineBreak() {

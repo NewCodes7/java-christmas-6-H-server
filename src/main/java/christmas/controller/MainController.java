@@ -9,6 +9,7 @@ import christmas.model.TotalOrderCalculator;
 import christmas.model.customer.VisitDate;
 import christmas.view.InputView;
 import christmas.view.OutputView;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -26,7 +27,8 @@ public class MainController {
         OutputView.printOrderedMenu(orderedMenu);
         OutputView.printTotalOrderAmount(totalOrderAmount);
         OutputView.printGift(giftPrice);
-
+        Integer[] discountDetails = {discountDDay, discountWeek, discountSpecial, giftPrice};
+        OutputView.printDiscountDetails(discountDetails);
     }
 
     private static int visitDateController() {
