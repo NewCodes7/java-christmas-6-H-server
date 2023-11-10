@@ -2,8 +2,7 @@ package christmas.model;
 
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
-import christmas.view.InputView;
-import org.junit.jupiter.api.Test;
+import christmas.model.customer.VisitDate;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 

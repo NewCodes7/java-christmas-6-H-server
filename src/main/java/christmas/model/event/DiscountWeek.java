@@ -1,4 +1,4 @@
-package christmas.model;
+package christmas.model.event;
 
 import christmas.constant.MenuInfo;
 import java.util.Arrays;

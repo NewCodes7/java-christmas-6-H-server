@@ -1,12 +1,12 @@
 package christmas.controller;
 
-import christmas.model.DiscountChristmasDDay;
-import christmas.model.DiscountSpecial;
-import christmas.model.DiscountWeek;
-import christmas.model.GiftPromotion;
-import christmas.model.OrderMenu;
+import christmas.model.event.DiscountChristmasDDay;
+import christmas.model.event.DiscountSpecial;
+import christmas.model.event.DiscountWeek;
+import christmas.model.event.GiftPromotion;
+import christmas.model.customer.OrderMenu;
 import christmas.model.TotalOrderCalculator;
-import christmas.model.VisitDate;
+import christmas.model.customer.VisitDate;
 import christmas.view.InputView;
 import java.util.HashMap;
 import java.util.Map;

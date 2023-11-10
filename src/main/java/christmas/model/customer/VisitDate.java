@@ -1,4 +1,4 @@
-package christmas.model;
+package christmas.model.customer;
 
 import java.util.Arrays;
 
