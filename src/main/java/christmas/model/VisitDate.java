@@ -30,15 +30,4 @@ public class VisitDate {
             throw new IllegalArgumentException("[ERROR] 유효하지 않은 날짜입니다. 다시 입력해 주세요.");
         }
     }
-
-
-
-    public boolean isWeekDay() {
-        Integer[] weekDay = {3, 4, 5, 6, 7};
-        return Arrays.asList(weekDay).contains(date % 7);
-    }
-
-    public DiscountWeekday createDiscountWeekday() {
-        return new DiscountWeekday(date);
-    }
 }

@@ -1,16 +1,20 @@
 package christmas.controller;
 
 import christmas.model.DiscountChristmasDDay;
+import christmas.model.DiscountWeek;
 import christmas.model.OrderMenu;
 import christmas.model.VisitDate;
 import christmas.view.InputView;
+import java.util.HashMap;
+import java.util.Map;
+import org.junit.jupiter.api.Order;
 
 public class MainController {
     public void excute() {
         int date = visitDateController();
-        orderMenuController();
+        Map<String, Integer>  orderedMenu = orderMenuController();
         int discountDDay = discountChristmasDDayConroller(date);
-
+        int discountWeek = discountWeekConroller(date);
     }
 
     private static int visitDateController() {
@@ -26,16 +30,17 @@ public class MainController {
         return date;
     }
 
-    private static void orderMenuController() {
-        boolean isValid = false;
-        while (!isValid) {
+    private static Map<String, Integer> orderMenuController() {
+        OrderMenu orderMenu = new OrderMenu();
+        Map<String, Integer> orderedMenu = null;
+        while (orderedMenu == null) {
             try {
-                OrderMenu orderMenu = new OrderMenu(InputView.readMenu());
-                isValid = true;
+                orderedMenu = orderMenu.setOrderMenu(InputView.readMenu());
             } catch (IllegalArgumentException e) {
                 System.out.println(e.getMessage());
             }
         }
+        return orderedMenu;
     }
 
     private static int discountChristmasDDayConroller(int date) {
@@ -43,5 +48,8 @@ public class MainController {
         return discountChristmasDDay.calculate();
     }
 
-
+    private static int discountWeekConroller(int date) {
+        DiscountWeek discountWeek = new DiscountWeek(date);
+        return discountWeek.calculate();
+    }
 }

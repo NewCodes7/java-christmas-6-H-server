@@ -7,22 +7,20 @@ import java.util.Map;
 import java.util.Set;
 
 public class OrderMenu {
-    private static Map<String, Integer> orderedMenu = new HashMap<>();
-    public OrderMenu(String input) {
+
+    public Map<String, Integer> setOrderMenu(String input) {
+        Map<String, Integer> orderedMenu = new HashMap<>();
         String[] splitInput = splitByComma(input);
         validate(splitInput);
-        setOrderedMenu(splitInput);
+        for (String item : splitInput) {
+            String[] parts = item.split("-");
+            orderedMenu.put(parts[0], Integer.parseInt(parts[1]));
+        }
+        return orderedMenu;
     }
 
     private String[] splitByComma(String input) {
         return input.split(",");
-    }
-
-    private void setOrderedMenu(String[] input) {
-        for (String item : input) {
-            String[] parts = item.split("-");
-            orderedMenu.put(parts[0], Integer.parseInt(parts[1]));
-        }
     }
 
     private void validate(String[] input) {
