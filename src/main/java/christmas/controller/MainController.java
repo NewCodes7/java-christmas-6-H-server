@@ -3,7 +3,9 @@ package christmas.controller;
 import christmas.model.DiscountChristmasDDay;
 import christmas.model.DiscountSpecial;
 import christmas.model.DiscountWeek;
+import christmas.model.GiftPromotion;
 import christmas.model.OrderMenu;
+import christmas.model.TotalOrderCalculator;
 import christmas.model.VisitDate;
 import christmas.view.InputView;
 import java.util.HashMap;
@@ -16,6 +18,9 @@ public class MainController {
         int discountDDay = discountChristmasDDayConroller(date);
         int discountWeek = discountWeekConroller(orderedMenu, date);
         int discountSpecial = discountSpecialController(date);
+
+        int totalOrderAmount = totalOrderCalculator(orderedMenu);
+        boolean offerGift = giftPromotionController(totalOrderAmount);
     }
 
     private static int visitDateController() {
@@ -57,5 +62,15 @@ public class MainController {
     private static int discountSpecialController(int date) {
         DiscountSpecial discountSpecial = new DiscountSpecial();
         return discountSpecial.setDiscount(date);
+    }
+
+    private static boolean giftPromotionController(int totalOrderAmount) {
+        GiftPromotion giftPromotion = new GiftPromotion();
+        return giftPromotion.isSatisfied(totalOrderAmount);
+    }
+
+    private static int totalOrderCalculator(Map<String, Integer> orderedMenu) {
+        TotalOrderCalculator totalOrderCalculator = new TotalOrderCalculator();
+        return totalOrderCalculator.calculateTotalOrder(orderedMenu);
     }
 }

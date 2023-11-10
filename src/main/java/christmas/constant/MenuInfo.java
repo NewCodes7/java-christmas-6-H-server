@@ -1,7 +1,9 @@
 package christmas.constant;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public enum MenuInfo {
     MUSHROOM_SOUP("애피타이저", "양송이수프", 6000),
@@ -78,5 +80,13 @@ public enum MenuInfo {
             }
         }
         return desserts;
+    }
+
+    public static Map<String, Integer> getMenuBoard() {
+        Map<String, Integer> menuBoard = new HashMap<>();
+        for (MenuInfo menu : MenuInfo.values()) {
+            menuBoard.put(menu.getName(), menu.getPrice());
+        }
+        return menuBoard;
     }
 }
