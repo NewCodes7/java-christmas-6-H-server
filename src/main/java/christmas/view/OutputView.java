@@ -16,6 +16,16 @@ public class OutputView {
         }
     }
 
+    public static void printTotalOrderAmount(int amount) {
+        System.out.println("<할인 전 총주문 금액>");
+        System.out.println(formatCurrency(amount));
+    }
+
+    private static String formatCurrency(int amount) {
+        DecimalFormat currencyFormatter = new DecimalFormat("###,###원");
+        return currencyFormatter.format(amount);
+    }
+
     public static void lineBreak() {
         System.out.print("\n");
     }

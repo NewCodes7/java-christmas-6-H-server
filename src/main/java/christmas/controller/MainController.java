@@ -24,6 +24,7 @@ public class MainController {
         boolean offerGift = giftPromotionController(totalOrderAmount);
 
         OutputView.printOrderedMenu(orderedMenu);
+        OutputView.printTotalOrderAmount(totalOrderAmount);
     }
 
     private static int visitDateController() {
