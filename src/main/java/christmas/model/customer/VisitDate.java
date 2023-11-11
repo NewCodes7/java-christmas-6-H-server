@@ -12,21 +12,16 @@ public class VisitDate {
     }
 
     private static void validate(String date) {
-        validateIsInteger(date);
-        validateIsNumberInRange(date);
+        validateIsInRange(date);
     }
 
-    private static void validateIsInteger(String date) {
+    private static void validateIsInRange(String date) {
         try{
-            Integer.parseInt(date);
+            int number = Integer.parseInt(date);
+            if (number < 1 || number > 31) {
+                throw new IllegalArgumentException();
+            }
         } catch (IllegalArgumentException e) {
-            throw new IllegalArgumentException("[ERROR] 유효하지 않은 날짜입니다. 다시 입력해 주세요.");
-        }
-    }
-
-    private static void validateIsNumberInRange(String date) {
-        int number = Integer.parseInt(date);
-        if (number < 1 || number > 31) {
             throw new IllegalArgumentException("[ERROR] 유효하지 않은 날짜입니다. 다시 입력해 주세요.");
         }
     }
