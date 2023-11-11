@@ -1,6 +1,7 @@
 package christmas.view;
 
 import camp.nextstep.edu.missionutils.Console;
+import christmas.constant.DiscountType;
 import christmas.constant.EventBadge;
 import christmas.constant.Message;
 import java.text.DecimalFormat;
@@ -15,13 +16,20 @@ public class OutputView {
     private static final String TOTAL_BENEFITS_AMOUNTS = "<총혜택 금액>";
     private static final String TOTAL_PAYMENTS = "<할인 후 예상 결제 금액>";
     private static final String DECEMBER_EVENT_BADGE = "<12월 이벤트 배지>";
+    private static final String ORDER_MENU_FORMAT = "%s %d개";
+    private static final String PRICE_FORMAT = "###,###원";
+    private static final String LINE_BREAK = "\n";
+    private static final String MINUS = "-";
+    private static final String NONE = "없음";
+    private static final int ZERO = 0;
 
     public static void print(String message) {
         System.out.println(message);
     }
 
     public static void printWithNewLine(String message) {
-        System.out.println("\n" + message);
+        lineBreak();
+        System.out.println(message);
     }
 
     public static void printOrderedMenu(Map<String, Integer> orderedMenu) {
@@ -29,7 +37,7 @@ public class OutputView {
         for (Map.Entry<String, Integer> entry : orderedMenu.entrySet()) {
             String menuName = entry.getKey();
             int quantity = entry.getValue();
-            String formattedLine = String.format("%s %d개", menuName, quantity);
+            String formattedLine = String.format(ORDER_MENU_FORMAT, menuName, quantity);
             System.out.println(formattedLine);
         }
     }
@@ -40,7 +48,7 @@ public class OutputView {
     }
 
     private static String formatCurrency(int amount) {
-        DecimalFormat currencyFormatter = new DecimalFormat("###,###원");
+        DecimalFormat currencyFormatter = new DecimalFormat(PRICE_FORMAT);
         return currencyFormatter.format(amount);
     }
 
@@ -51,20 +59,19 @@ public class OutputView {
 
     public static void printDiscountDetails(Integer[] details) {
         printWithNewLine(BENEFITS_DETAILS);
-        String[] message = {"크리스마스 디데이 할인: ", "평일 할인: ", "특별 할인: ", "증정 이벤트: "};
-        for (int i = 0; i<message.length; i++) {
-            if (details[i] != 0) {
-                System.out.println(message[i] + "-" + formatCurrency(details[i]));
+        for (int i = ZERO; i<details.length; i++) {
+            if (details[i] != ZERO) {
+                System.out.println(DiscountType.values()[i].getDisplayName() + MINUS + formatCurrency(details[i]));
             }
         }
-        if (Arrays.stream(details).allMatch(number -> number == 0)) {
-            System.out.println("없음");
+        if (Arrays.stream(details).allMatch(number -> number == ZERO)) {
+            System.out.println(NONE);
         }
     }
 
     public static void printTotalDiscount(int totalDiscount) {
         printWithNewLine(TOTAL_BENEFITS_AMOUNTS);
-        System.out.println("-" + formatCurrency(totalDiscount));
+        System.out.println(MINUS + formatCurrency(totalDiscount));
     }
 
     public static void printFinalPayment(int finalPayment) {
@@ -79,6 +86,6 @@ public class OutputView {
     }
 
     public static void lineBreak() {
-        System.out.print("\n");
+        System.out.print(LINE_BREAK);
     }
 }

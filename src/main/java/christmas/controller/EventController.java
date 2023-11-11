@@ -1,5 +1,6 @@
 package christmas.controller;
 
+import christmas.constant.EventBadge;
 import christmas.model.event.DiscountChristmasDDay;
 import christmas.model.event.DiscountSpecial;
 import christmas.model.event.DiscountWeek;
@@ -63,15 +64,15 @@ public class EventController {
     }
 
     private static void checkEventBadge(int totalDiscount) {
-        String badge = "없음";
+        String badge = EventBadge.NON.getBadge();
         if (totalDiscount >= 5000 && totalDiscount < 10000) {
-            badge = "별";
+            badge = EventBadge.STAR.getBadge();
         }
         if (totalDiscount >= 10000 && totalDiscount < 20000) {
-            badge = "트리";
+            badge = EventBadge.TREE.getBadge();
         }
         if (totalDiscount >= 20000) {
-            badge = "산타";
+            badge = EventBadge.SANTA.getBadge();
         }
         OutputView.printEventBadge(badge);
     }
