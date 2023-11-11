@@ -1,6 +1,12 @@
 package christmas.controller;
 
-import christmas.constant.EventBadge;
+import static christmas.constant.event.EventBadge.NON;
+import static christmas.constant.event.EventBadge.SANTA;
+import static christmas.constant.event.EventBadge.STAR;
+import static christmas.constant.event.EventBadge.TREE;
+import static christmas.constant.Numbers.INITIALIZE_ZERO;
+
+import christmas.constant.event.EventMessage;
 import christmas.constant.MenuInfo;
 import christmas.model.event.DiscountChristmasDDay;
 import christmas.model.event.DiscountSpecial;
@@ -9,12 +15,6 @@ import christmas.model.event.GiftPromotion;
 import christmas.view.OutputView;
 
 public class EventController {
-    private static final String INITIALIZE_NONE = "없음";
-    private static final String GIFT_CHAMPAGNE = "샴페인 1개";
-    private static final int INITIALIZE_ZERO = 0;
-    private static final int MIN_AMOUNT_FOR_STAR_BADGE = 5000;
-    private static final int MIN_AMOUNT_FOR_TREE_BADGE = 10000;
-    private static final int MIN_AMOUNT_FOR_SANTA_BADGE = 20000;
     private static final int INDEX_DATE = 0;
     private static final int INDEX_TOTAL_ORDER_AMOUNTS = 1;
     private static final int INDEX_DISCOUNT_WEEK_QUANTITY = 2;
@@ -59,30 +59,30 @@ public class EventController {
     private static int giftPromotionController(int totalOrderAmount) {
         GiftPromotion giftPromotion = new GiftPromotion();
         int giftPrice = giftPromotion.setGift(totalOrderAmount);
-        String message = INITIALIZE_NONE;
+        String message = EventMessage.NONE.getMessage();
         if (giftPrice == MenuInfo.CHAMPAGNE.getPrice()) {
-            message = GIFT_CHAMPAGNE;
+            message = EventMessage.GIFT_CHAMPAGNE.getMessage();
         }
         OutputView.printGift(message);
         return giftPrice;
     }
 
     private static void checkEventBadge(int totalDiscount) {
-        String badge = EventBadge.NON.getBadge();
-        if (totalDiscount >= MIN_AMOUNT_FOR_STAR_BADGE && totalDiscount < MIN_AMOUNT_FOR_TREE_BADGE) {
-            badge = EventBadge.STAR.getBadge();
+        String badge = NON.getBadge();
+        if (totalDiscount >= STAR.getMinTotalDiscount() && totalDiscount < TREE.getMinTotalDiscount()) {
+            badge = STAR.getBadge();
         }
-        if (totalDiscount >= MIN_AMOUNT_FOR_TREE_BADGE && totalDiscount < MIN_AMOUNT_FOR_SANTA_BADGE) {
-            badge = EventBadge.TREE.getBadge();
+        if (totalDiscount >= TREE.getMinTotalDiscount() && totalDiscount < SANTA.getMinTotalDiscount()) {
+            badge = TREE.getBadge();
         }
-        if (totalDiscount >= MIN_AMOUNT_FOR_SANTA_BADGE) {
-            badge = EventBadge.SANTA.getBadge();
+        if (totalDiscount >= SANTA.getMinTotalDiscount()) {
+            badge = SANTA.getBadge();
         }
         OutputView.printEventBadge(badge);
     }
 
     private static int calculateTotalDiscounted(Integer[] details) {
-        int totalDiscount = INITIALIZE_ZERO;
+        int totalDiscount = INITIALIZE_ZERO.getValue();
         for (int amount : details) {
             totalDiscount += amount;
         }
@@ -92,7 +92,7 @@ public class EventController {
 
     private static void calculateFinalPayment(int totalAmount, Integer[] discountAmounts) {
         int finalPayment = totalAmount;
-        for (int i = INITIALIZE_ZERO; i < ACTUAL_DISCOUNT_COUNT; i++) {
+        for (int i = INITIALIZE_ZERO.getValue(); i < ACTUAL_DISCOUNT_COUNT; i++) {
             finalPayment -= discountAmounts[i];
         }
         OutputView.printFinalPayment(finalPayment);

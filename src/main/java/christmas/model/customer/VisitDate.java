@@ -3,7 +3,6 @@ package christmas.model.customer;
 import christmas.constant.ErrorMessage;
 
 public class VisitDate {
-    private static final int INITIALIZE_ZERO = 0;
     public static final int DECEMBER_FIRST = 1;
     public static final int DECEMBER_LAST = 31;
 

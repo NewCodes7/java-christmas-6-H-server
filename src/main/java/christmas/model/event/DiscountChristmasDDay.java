@@ -1,16 +1,16 @@
 package christmas.model.event;
 
+import christmas.constant.event.EventNumbers;
 import christmas.constant.Numbers;
 
 public class DiscountChristmasDDay {
-    public static final int MIN_DISCOUNT = 1000;
-    public static final int INCREMENT_AMOUNT = 100;
     public static final int FIRST_DAY = 1;
 
     public int calculate(int date) {
         int discount = Numbers.INITIALIZE_ZERO.getValue();
         if(isChristmasDDayDiscountActive(date)){
-            discount = MIN_DISCOUNT + INCREMENT_AMOUNT * (date - FIRST_DAY);
+            discount = EventNumbers.D_DAY_MIN_DISCOUNT.getValue()
+                    + EventNumbers.D_DAY_INCREMENT_AMOUNT.getValue() * (date - FIRST_DAY);
         }
         return discount;
     }

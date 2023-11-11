@@ -5,7 +5,6 @@ public enum Numbers {
     CHRISTMAS_DAY(25),
     WEEK_LENGTH(7);
 
-
     private final int value;
 
     Numbers(int value) {

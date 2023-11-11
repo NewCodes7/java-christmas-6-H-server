@@ -1,16 +1,21 @@
 package christmas.model.customer;
 
+import static christmas.constant.ErrorMessage.INVALID_ORDER;
+import static christmas.constant.ErrorMessage.INVALID_ORDER_DRINK;
+import static christmas.constant.ErrorMessage.INVALID_ORDER_LIMIT;
+import static christmas.constant.ErrorMessage.INVALID_ORDER_QUANTITY;
+import static christmas.constant.event.EventNumbers.MAX_TOTAL_ORDER_LIMIT;
+
 import christmas.constant.ErrorMessage;
+import christmas.constant.event.EventNumbers;
 import christmas.constant.MenuInfo;
+import christmas.constant.Numbers;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
 public class OrderMenu {
-    private static final int INITIALIZE_ZERO = 0;
-    private static final int MAX_TOTAL_ORDER_LIMIT = 20;
-    private static final int MIN_ORDER_LIMIT = 1;
     private static final int VALID_LENGTH = 2;
     private static final int INDEX_ORDERED_MENU = 0;
     private static final int INDEX_ORDERED_QUANTITY = 1;
@@ -33,7 +38,7 @@ public class OrderMenu {
     }
 
     private void validate(String[] input) {
-        int totalOrderQuantity = INITIALIZE_ZERO;
+        int totalOrderQuantity = Numbers.INITIALIZE_ZERO.getValue();
         Set<String> menuChoices = new HashSet<>();
         for (String item : input) {
             String[] parts = item.split(ORDER_HYPHEN);
@@ -49,34 +54,34 @@ public class OrderMenu {
 
     private void validateValidHyphenFormat(String[] parts) {
         if (parts.length != VALID_LENGTH) {
-            throw new IllegalArgumentException(ErrorMessage.INVALID_ORDER.getErrorMessage()
+            throw new IllegalArgumentException(INVALID_ORDER.getErrorMessage()
                     + ErrorMessage.INVALID_ORDER_FORMAT.getMessage());
         }
     }
 
     private void validateValidMenu(String[] parts) {
         if (!MenuInfo.contains(parts[INDEX_ORDERED_MENU])) {
-            throw new IllegalArgumentException(ErrorMessage.INVALID_ORDER.getErrorMessage()
+            throw new IllegalArgumentException(INVALID_ORDER.getErrorMessage()
                     + ErrorMessage.INVALID_ORDER_MENU.getMessage());
         }
     }
 
     private void validateOrderQuantity(String[] parts) {
         try {
-            if (Integer.parseInt(parts[INDEX_ORDERED_QUANTITY]) < MIN_ORDER_LIMIT) {
+            if (Integer.parseInt(parts[INDEX_ORDERED_QUANTITY]) < EventNumbers.MIN_ORDER_LIMIT.getValue()) {
                 throw new IllegalArgumentException();
             }
         } catch (IllegalArgumentException e) {
-            throw new IllegalArgumentException(ErrorMessage.INVALID_ORDER.getErrorMessage()
-                    + ErrorMessage.INVALID_ORDER_QUANTITY.getMessage());
+            throw new IllegalArgumentException(INVALID_ORDER.getErrorMessage()
+                    + INVALID_ORDER_QUANTITY.getMessage());
         }
     }
 
     private int validateTotalOrderQuantityUnderLimit(String[] parts, int count) {
         count += Integer.parseInt(parts[INDEX_ORDERED_QUANTITY]);
-        if (count > MAX_TOTAL_ORDER_LIMIT) {
-            throw new IllegalArgumentException(ErrorMessage.INVALID_ORDER.getErrorMessage()
-                    + ErrorMessage.INVALID_ORDER_LIMIT.getMessage());
+        if (count > MAX_TOTAL_ORDER_LIMIT.getValue()) {
+            throw new IllegalArgumentException(INVALID_ORDER.getErrorMessage()
+                    + INVALID_ORDER_LIMIT.getMessage());
         }
         return count;
     }
@@ -86,8 +91,8 @@ public class OrderMenu {
             menuChoices.remove(drink);
         }
         if (menuChoices.isEmpty()) {
-            throw new IllegalArgumentException(ErrorMessage.INVALID_ORDER.getErrorMessage()
-                    + ErrorMessage.INVALID_ORDER_DRINK.getMessage());
+            throw new IllegalArgumentException(INVALID_ORDER.getErrorMessage()
+                    + INVALID_ORDER_DRINK.getMessage());
         }
     }
 }

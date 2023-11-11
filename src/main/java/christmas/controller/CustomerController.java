@@ -1,5 +1,8 @@
 package christmas.controller;
 
+import static christmas.constant.Message.EXPECTED_EVENT;
+import static christmas.constant.Numbers.INITIALIZE_ZERO;
+
 import christmas.constant.Message;
 import christmas.constant.Numbers;
 import christmas.model.customer.OrderMenu;
@@ -12,7 +15,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class CustomerController {
-    private static final int INITIALIZE_ZERO = 0;
     public Integer[] excute() {
         // customer - 날짜 및 메뉴 입력받기, 주문한 메뉴 출력, 할인 전 총주문 금액 출력
         int date = visitDateController();
@@ -25,8 +27,8 @@ public class CustomerController {
 
     private static int visitDateController() {
         VisitDate visitDate = new VisitDate();
-        int date = INITIALIZE_ZERO;
-        while (date == INITIALIZE_ZERO) {
+        int date = INITIALIZE_ZERO.getValue();
+        while (date == INITIALIZE_ZERO.getValue()) {
             try {
                 date = visitDate.setVisitDate(InputView.readDate());
             } catch (IllegalArgumentException e) {
@@ -46,7 +48,7 @@ public class CustomerController {
                 OutputView.print(e.getMessage());
             }
         }
-        OutputView.print(Message.EXPECTED_EVENT.getMessage());
+        OutputView.print(EXPECTED_EVENT.getMessage());
         OutputView.printOrderedMenu(orderedMenu);
         return orderedMenu;
     }

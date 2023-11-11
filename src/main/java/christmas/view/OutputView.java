@@ -1,21 +1,20 @@
 package christmas.view;
 
-import camp.nextstep.edu.missionutils.Console;
-import christmas.constant.DiscountType;
-import christmas.constant.EventBadge;
-import christmas.constant.Message;
+import static christmas.constant.event.EventMessage.BENEFITS_DETAILS;
+import static christmas.constant.event.EventMessage.DECEMBER_EVENT_BADGE;
+import static christmas.constant.event.EventMessage.GIFT;
+import static christmas.constant.event.EventMessage.ORDER_MENU;
+import static christmas.constant.event.EventMessage.TOTAL_BENEFITS_AMOUNTS;
+import static christmas.constant.event.EventMessage.TOTAL_ORDER_AMOUNTS;
+import static christmas.constant.event.EventMessage.TOTAL_PAYMENTS;
+
+import christmas.constant.event.DiscountType;
 import java.text.DecimalFormat;
 import java.util.Arrays;
 import java.util.Map;
 
 public class OutputView {
-    private static final String ORDER_MENU = "<주문 메뉴>";
-    private static final String TOTAL_ORDER_AMOUNTS = "<할인 전 총주문 금액>";
-    private static final String GIFT = "<증정 메뉴>";
-    private static final String BENEFITS_DETAILS = "<혜택 내역>";
-    private static final String TOTAL_BENEFITS_AMOUNTS = "<총혜택 금액>";
-    private static final String TOTAL_PAYMENTS = "<할인 후 예상 결제 금액>";
-    private static final String DECEMBER_EVENT_BADGE = "<12월 이벤트 배지>";
+
     private static final String ORDER_MENU_FORMAT = "%s %d개";
     private static final String PRICE_FORMAT = "###,###원";
     private static final String LINE_BREAK = "\n";
@@ -33,7 +32,7 @@ public class OutputView {
     }
 
     public static void printOrderedMenu(Map<String, Integer> orderedMenu) {
-        printWithNewLine(ORDER_MENU);
+        printWithNewLine(ORDER_MENU.getMessage());
         for (Map.Entry<String, Integer> entry : orderedMenu.entrySet()) {
             String menuName = entry.getKey();
             int quantity = entry.getValue();
@@ -43,7 +42,7 @@ public class OutputView {
     }
 
     public static void printTotalOrderAmount(int amount) {
-        printWithNewLine(TOTAL_ORDER_AMOUNTS);
+        printWithNewLine(TOTAL_ORDER_AMOUNTS.getMessage());
         System.out.println(formatCurrency(amount));
     }
 
@@ -53,12 +52,12 @@ public class OutputView {
     }
 
     public static void printGift(String message) {
-        printWithNewLine(GIFT);
+        printWithNewLine(GIFT.getMessage());
         System.out.println(message);
     }
 
     public static void printDiscountDetails(Integer[] details) {
-        printWithNewLine(BENEFITS_DETAILS);
+        printWithNewLine(BENEFITS_DETAILS.getMessage());
         for (int i = ZERO; i<details.length; i++) {
             if (details[i] != ZERO) {
                 System.out.println(DiscountType.values()[i].getDisplayName() + MINUS + formatCurrency(details[i]));
@@ -70,17 +69,17 @@ public class OutputView {
     }
 
     public static void printTotalDiscount(int totalDiscount) {
-        printWithNewLine(TOTAL_BENEFITS_AMOUNTS);
+        printWithNewLine(TOTAL_BENEFITS_AMOUNTS.getMessage());
         System.out.println(MINUS + formatCurrency(totalDiscount));
     }
 
     public static void printFinalPayment(int finalPayment) {
-        printWithNewLine(TOTAL_PAYMENTS);
+        printWithNewLine(TOTAL_PAYMENTS.getMessage());
         System.out.println(formatCurrency(finalPayment));
     }
 
     public static void printEventBadge(String badge) {
-        printWithNewLine(DECEMBER_EVENT_BADGE);
+        printWithNewLine(DECEMBER_EVENT_BADGE.getMessage());
         System.out.println(badge);
 
     }
