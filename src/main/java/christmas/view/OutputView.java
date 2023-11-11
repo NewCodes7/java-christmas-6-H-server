@@ -52,7 +52,7 @@ public class OutputView {
         }
     }
 
-    public static void printTotalDiscount(Integer[] details) {
+    public static int printTotalDiscount(Integer[] details) {
         lineBreak();
         System.out.println("<총혜택 금액>");
         int totalDiscount = 0;
@@ -60,6 +60,7 @@ public class OutputView {
             totalDiscount += amount;
         }
         System.out.println("-" + formatCurrency(totalDiscount));
+        return totalDiscount;
     }
 
     public static void printFinalPayment(int totalAmount, Integer[] discountAmounts) {
@@ -70,6 +71,23 @@ public class OutputView {
             finalPayment -= discountAmounts[i];
         }
         System.out.println(formatCurrency(finalPayment));
+    }
+
+    public static void printEventBadge(int totalDiscount) {
+        lineBreak();
+        System.out.println("<12월 이벤트 배지>");
+        if (totalDiscount < 5000) {
+            System.out.println("없음");
+        }
+        if (totalDiscount >= 5000 && totalDiscount < 10000) {
+            System.out.println("별");
+        }
+        if (totalDiscount >= 10000 && totalDiscount < 20000) {
+            System.out.println("트리");
+        }
+        if (totalDiscount >= 20000) {
+            System.out.println("산타");
+        }
     }
 
     public static void lineBreak() {
