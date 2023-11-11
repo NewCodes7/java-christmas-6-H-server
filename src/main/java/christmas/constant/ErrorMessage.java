@@ -9,7 +9,6 @@ public enum ErrorMessage {
     INVALID_ORDER_LIMIT("총 주문 수량은 20개 이하여야 합니다."),
     INVALID_ORDER_DRINK("음료만 주문할 수 없습니다.");
 
-
     private final String message;
     ErrorMessage(String message) {
         this.message = message;

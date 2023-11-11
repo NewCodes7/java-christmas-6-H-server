@@ -1,5 +1,6 @@
 package christmas.controller;
 
+import christmas.constant.Message;
 import christmas.model.event.DiscountChristmasDDay;
 import christmas.model.event.DiscountSpecial;
 import christmas.model.event.DiscountWeek;
@@ -9,12 +10,13 @@ import christmas.model.TotalOrderCalculator;
 import christmas.model.customer.VisitDate;
 import christmas.view.InputView;
 import christmas.view.OutputView;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
 public class MainController {
     public void excute() {
+        OutputView.print(Message.WELCOME.getMessage());
+
         int date = visitDateController();
         Map<String, Integer> orderedMenu = orderMenuController();
         int discountDDay = discountChristmasDDayConroller(date); // 0원일 수도 있음. (이벤트 미적용)
@@ -24,6 +26,7 @@ public class MainController {
         int totalOrderAmount = totalOrderCalculator(orderedMenu);
         int giftPrice = giftPromotionController(totalOrderAmount); // 0원일 수도 있음. (이벤트 미적용)
 
+        OutputView.print(Message.EXPECTED_EVENT.getMessage());
         OutputView.printOrderedMenu(orderedMenu);
         OutputView.printTotalOrderAmount(totalOrderAmount);
         OutputView.printGift(giftPrice);
@@ -41,7 +44,7 @@ public class MainController {
             try {
                 date = visitDate.setVisitDate(InputView.readDate());
             } catch (IllegalArgumentException e) {
-                OutputView.printErrorMessage(e.getMessage());
+                OutputView.print(e.getMessage());
             }
         }
         return date;
@@ -54,7 +57,7 @@ public class MainController {
             try {
                 orderedMenu = orderMenu.setOrderMenu(InputView.readMenu());
             } catch (IllegalArgumentException e) {
-                OutputView.printErrorMessage(e.getMessage());
+                OutputView.print(e.getMessage());
             }
         }
         return orderedMenu;

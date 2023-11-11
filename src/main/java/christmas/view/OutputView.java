@@ -1,12 +1,13 @@
 package christmas.view;
 
+import camp.nextstep.edu.missionutils.Console;
+import christmas.constant.Message;
 import java.text.DecimalFormat;
 import java.util.Arrays;
 import java.util.Map;
 
 public class OutputView {
-
-    public static void printErrorMessage(String message) {
+    public static void print(String message) {
         System.out.println(message);
     }
 
