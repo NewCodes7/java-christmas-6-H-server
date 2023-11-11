@@ -10,23 +10,30 @@ import java.util.Map;
 public class EventController {
 
     public void excute(Integer[] data) {
+        int totalOrderAmount = data[1];
+        Integer[] discountDetails = excuteDiscountResult(data);
+        excuteFinalResult(discountDetails, totalOrderAmount);
+    }
+
+    private static Integer[] excuteDiscountResult(Integer[] data) {
         int date = data[0];
         int totalOrderAmount = data[1];
-        int discountWeekQuantity = data[2]; //Map으로 하는 게 더 안정적이긴 할 듯.
+        int discountWeekQuantity = data[2];
 
-        // event - 할인 및 증정 내역 출력
-        int giftPrice = giftPromotionController(totalOrderAmount); // 0원일 수도 있음. (이벤트 미적용)
-
-        int discountDDay = discountChristmasDDayConroller(date); // 0원일 수도 있음. (이벤트 미적용)
-        int discountWeek = discountWeekConroller(discountWeekQuantity); // 디저트 혹은 메인 주문량 위해서 필요함.
-        int discountSpecial = discountSpecialController(date); // 0원일 수도 있음. (이벤트 미적용)
-
+        int giftPrice = giftPromotionController(totalOrderAmount);
+        int discountDDay = discountChristmasDDayConroller(date);
+        int discountWeek = discountWeekConroller(discountWeekQuantity);
+        int discountSpecial = discountSpecialController(date);
         Integer[] discountDetails = {discountDDay, discountWeek, discountSpecial, giftPrice};
-        OutputView.printDiscountDetails(discountDetails);
 
-        int totalDiscount = OutputView.printTotalDiscount(discountDetails);
-        OutputView.printFinalPayment(totalOrderAmount, discountDetails);
-        OutputView.printEventBadge(totalDiscount);
+        return discountDetails;
+    }
+
+    private static void excuteFinalResult(Integer[] discountDetails, int totalOrderAmount) {
+        int totalDiscount = calculateTotalDiscounted(discountDetails);
+        OutputView.printDiscountDetails(discountDetails);
+        calculateFinalPayment(totalOrderAmount, discountDetails);
+        checkEventBadge(totalDiscount);
     }
 
     private static int discountChristmasDDayConroller(int date) {
@@ -47,7 +54,42 @@ public class EventController {
     private static int giftPromotionController(int totalOrderAmount) {
         GiftPromotion giftPromotion = new GiftPromotion();
         int giftPrice = giftPromotion.setGift(totalOrderAmount);
-        OutputView.printGift(giftPrice);
+        String message = "없음";
+        if (giftPrice == 25000) {
+            message = "샴페인 1개";
+        }
+        OutputView.printGift(message);
         return giftPrice;
+    }
+
+    private static void checkEventBadge(int totalDiscount) {
+        String badge = "없음";
+        if (totalDiscount >= 5000 && totalDiscount < 10000) {
+            badge = "별";
+        }
+        if (totalDiscount >= 10000 && totalDiscount < 20000) {
+            badge = "트리";
+        }
+        if (totalDiscount >= 20000) {
+            badge = "산타";
+        }
+        OutputView.printEventBadge(badge);
+    }
+
+    private static int calculateTotalDiscounted(Integer[] details) {
+        int totalDiscount = 0;
+        for (int amount : details) {
+            totalDiscount += amount;
+        }
+        OutputView.printTotalDiscount(totalDiscount);
+        return totalDiscount;
+    }
+
+    private static void calculateFinalPayment(int totalAmount, Integer[] discountAmounts) {
+        int finalPayment = totalAmount;
+        for (int i = 0; i<3; i++) {
+            finalPayment -= discountAmounts[i];
+        }
+        OutputView.printFinalPayment(finalPayment);
     }
 }

@@ -36,7 +36,6 @@ public class OutputView {
 
     public static void printTotalOrderAmount(int amount) {
         printWithNewLine(TOTAL_ORDER_AMOUNTS);
-
         System.out.println(formatCurrency(amount));
     }
 
@@ -45,12 +44,8 @@ public class OutputView {
         return currencyFormatter.format(amount);
     }
 
-    public static void printGift(int giftPrice) {
+    public static void printGift(String message) {
         printWithNewLine(GIFT);
-        String message = "없음";
-        if (giftPrice == 25000) {
-            message = "샴페인 1개";
-        }
         System.out.println(message);
     }
 
@@ -67,41 +62,20 @@ public class OutputView {
         }
     }
 
-    public static int printTotalDiscount(Integer[] details) {
+    public static void printTotalDiscount(int totalDiscount) {
         printWithNewLine(TOTAL_BENEFITS_AMOUNTS);
-
-        int totalDiscount = 0;
-        for (int amount : details) {
-            totalDiscount += amount;
-        }
         System.out.println("-" + formatCurrency(totalDiscount));
-        return totalDiscount;
     }
 
-    public static void printFinalPayment(int totalAmount, Integer[] discountAmounts) {
+    public static void printFinalPayment(int finalPayment) {
         printWithNewLine(TOTAL_PAYMENTS);
-
-        int finalPayment = totalAmount;
-        for (int i = 0; i<3; i++) {
-            finalPayment -= discountAmounts[i];
-        }
         System.out.println(formatCurrency(finalPayment));
     }
 
-    public static void printEventBadge(int totalDiscount) {
+    public static void printEventBadge(String badge) {
         printWithNewLine(DECEMBER_EVENT_BADGE);
-        if (totalDiscount < 5000) {
-            System.out.println("없음");
-        }
-        if (totalDiscount >= 5000 && totalDiscount < 10000) {
-            System.out.println("별");
-        }
-        if (totalDiscount >= 10000 && totalDiscount < 20000) {
-            System.out.println("트리");
-        }
-        if (totalDiscount >= 20000) {
-            System.out.println("산타");
-        }
+        System.out.println(badge);
+
     }
 
     public static void lineBreak() {
