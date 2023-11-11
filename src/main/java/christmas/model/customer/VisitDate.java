@@ -1,13 +1,11 @@
 package christmas.model.customer;
 
-import java.util.Arrays;
+import christmas.constant.ErrorMessage;
 
 public class VisitDate {
-    private static int date;
-
     public int setVisitDate(String number) {
         validate(number);
-        date = Integer.parseInt(number);
+        int date = Integer.parseInt(number);
         return date;
     }
 
@@ -22,7 +20,7 @@ public class VisitDate {
                 throw new IllegalArgumentException();
             }
         } catch (IllegalArgumentException e) {
-            throw new IllegalArgumentException("[ERROR] 유효하지 않은 날짜입니다. 다시 입력해 주세요.");
+            throw new IllegalArgumentException(ErrorMessage.OUT_OF_RANGE_DATE.getErrorMessage());
         }
     }
 }

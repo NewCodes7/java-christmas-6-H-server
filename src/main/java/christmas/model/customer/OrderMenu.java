@@ -1,5 +1,6 @@
 package christmas.model.customer;
 
+import christmas.constant.ErrorMessage;
 import christmas.constant.MenuInfo;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -40,13 +41,15 @@ public class OrderMenu {
 
     private void validateValidHyphenFormat(String[] parts) {
         if (parts.length != 2) {
-            throw new IllegalArgumentException("[ERROR] 유효하지 않은 주문입니다. 다시 입력해 주세요.\n예시 주문 형식을 참고해주세요.");
+            throw new IllegalArgumentException(ErrorMessage.INVALID_ORDER.getErrorMessage()
+                    + ErrorMessage.INVALID_ORDER_FORMAT.getMessage());
         }
     }
 
     private void validateValidMenu(String[] parts) {
         if (!MenuInfo.contains(parts[0])) {
-            throw new IllegalArgumentException("[ERROR] 유효하지 않은 주문입니다. 다시 입력해 주세요.\n우테코 식당에 존재하지 않는 메뉴입니다.");
+            throw new IllegalArgumentException(ErrorMessage.INVALID_ORDER.getErrorMessage()
+                    + ErrorMessage.INVALID_ORDER_MENU.getMessage());
         }
     }
 
@@ -56,14 +59,16 @@ public class OrderMenu {
                 throw new IllegalArgumentException();
             }
         } catch (IllegalArgumentException e) {
-            throw new IllegalArgumentException("[ERROR] 유효하지 않은 주문입니다. 다시 입력해 주세요.\n 주문 수량은 1 이상의 숫자만 입력하셔야 합니다.");
+            throw new IllegalArgumentException(ErrorMessage.INVALID_ORDER.getErrorMessage()
+                    + ErrorMessage.INVALID_ORDER_QUANTITY.getMessage());
         }
     }
 
     private int validateTotalOrderQuantityUnderLimit(String[] parts, int count) {
         count += Integer.parseInt(parts[1]);
         if (count > 20) {
-            throw new IllegalArgumentException("[ERROR] 유효하지 않은 주문입니다. 다시 입력해 주세요.\n 총 주문 수량은 20개 이하여야 합니다.");
+            throw new IllegalArgumentException(ErrorMessage.INVALID_ORDER.getErrorMessage()
+                    + ErrorMessage.INVALID_ORDER_LIMIT.getMessage());
         }
         return count;
     }
@@ -73,7 +78,8 @@ public class OrderMenu {
             menuChoices.remove(drink);
         }
         if (menuChoices.isEmpty()) {
-            throw new IllegalArgumentException("[ERROR] 유효하지 않은 주문입니다. 다시 입력해 주세요.\n음료만 주문할 수 없습니다.");
+            throw new IllegalArgumentException(ErrorMessage.INVALID_ORDER.getErrorMessage()
+                    + ErrorMessage.INVALID_ORDER_DRINK.getMessage());
         }
     }
 }

@@ -41,7 +41,7 @@ public class MainController {
             try {
                 date = visitDate.setVisitDate(InputView.readDate());
             } catch (IllegalArgumentException e) {
-                System.out.println(e.getMessage());
+                OutputView.printErrorMessage(e.getMessage());
             }
         }
         return date;
@@ -54,7 +54,7 @@ public class MainController {
             try {
                 orderedMenu = orderMenu.setOrderMenu(InputView.readMenu());
             } catch (IllegalArgumentException e) {
-                System.out.println(e.getMessage());
+                OutputView.printErrorMessage(e.getMessage());
             }
         }
         return orderedMenu;

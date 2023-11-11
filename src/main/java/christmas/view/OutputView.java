@@ -6,6 +6,10 @@ import java.util.Map;
 
 public class OutputView {
 
+    public static void printErrorMessage(String message) {
+        System.out.println(message);
+    }
+
     public static void printOrderedMenu(Map<String, Integer> orderedMenu) {
         lineBreak();
         System.out.println("<주문 메뉴>");
