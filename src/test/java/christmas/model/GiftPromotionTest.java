@@ -9,6 +9,6 @@ class GiftPromotionTest {
     @Test
     void 샴페인_증정_확인() {
         GiftPromotion giftPromotion = new GiftPromotion();
-        assertThat(giftPromotion.setGift(1300000)).isEqualTo(true);
+        assertThat(giftPromotion.setGift(1300000)).isEqualTo(25000);
     }
 }

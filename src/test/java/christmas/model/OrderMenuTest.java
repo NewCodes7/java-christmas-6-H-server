@@ -40,7 +40,7 @@ class OrderMenuTest {
     void 예외_주문_수량이_1_이상의_정수가_아닌_경우(String menu) {
         assertThatThrownBy(() -> new OrderMenu().setOrderMenu(menu))
                 .isInstanceOf(IllegalArgumentException.class)
-                .hasMessageContaining("[ERROR] 유효하지 않은 주문입니다. 다시 입력해 주세요.\n 주문 수량은 1 이상의 숫자만 입력하셔야 합니다.");
+                .hasMessageContaining("[ERROR] 유효하지 않은 주문입니다. 다시 입력해 주세요.\n주문 수량은 1 이상의 숫자만 입력하셔야 합니다.");
     }
 
     @ParameterizedTest
@@ -48,7 +48,7 @@ class OrderMenuTest {
     void 예외_총주문_수량이_20개_초과인_경우(String menu) {
         assertThatThrownBy(() -> new OrderMenu().setOrderMenu(menu))
                 .isInstanceOf(IllegalArgumentException.class)
-                .hasMessageContaining("[ERROR] 유효하지 않은 주문입니다. 다시 입력해 주세요.\n 총 주문 수량은 20개 이하여야 합니다.");
+                .hasMessageContaining("[ERROR] 유효하지 않은 주문입니다. 다시 입력해 주세요.\n총 주문 수량은 20개 이하여야 합니다.");
     }
 
     @ParameterizedTest
