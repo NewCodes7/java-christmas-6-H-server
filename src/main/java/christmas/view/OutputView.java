@@ -1,19 +1,31 @@
 package christmas.view;
 
 import camp.nextstep.edu.missionutils.Console;
+import christmas.constant.EventBadge;
 import christmas.constant.Message;
 import java.text.DecimalFormat;
 import java.util.Arrays;
 import java.util.Map;
 
 public class OutputView {
+    private static final String ORDER_MENU = "<주문 메뉴>";
+    private static final String TOTAL_ORDER_AMOUNTS = "<할인 전 총주문 금액>";
+    private static final String GIFT = "<증정 메뉴>";
+    private static final String BENEFITS_DETAILS = "<혜택 내역>";
+    private static final String TOTAL_BENEFITS_AMOUNTS = "<총혜택 금액>";
+    private static final String TOTAL_PAYMENTS = "<할인 후 예상 결제 금액>";
+    private static final String DECEMBER_EVENT_BADGE = "<12월 이벤트 배지>";
+
     public static void print(String message) {
         System.out.println(message);
     }
 
+    public static void printWithNewLine(String message) {
+        System.out.println("\n" + message);
+    }
+
     public static void printOrderedMenu(Map<String, Integer> orderedMenu) {
-        lineBreak();
-        System.out.println("<주문 메뉴>");
+        printWithNewLine(ORDER_MENU);
         for (Map.Entry<String, Integer> entry : orderedMenu.entrySet()) {
             String menuName = entry.getKey();
             int quantity = entry.getValue();
@@ -23,8 +35,8 @@ public class OutputView {
     }
 
     public static void printTotalOrderAmount(int amount) {
-        lineBreak();
-        System.out.println("<할인 전 총주문 금액>");
+        printWithNewLine(TOTAL_ORDER_AMOUNTS);
+
         System.out.println(formatCurrency(amount));
     }
 
@@ -34,8 +46,7 @@ public class OutputView {
     }
 
     public static void printGift(int giftPrice) {
-        lineBreak();
-        System.out.println("<증정 메뉴>");
+        printWithNewLine(GIFT);
         String message = "없음";
         if (giftPrice == 25000) {
             message = "샴페인 1개";
@@ -44,8 +55,7 @@ public class OutputView {
     }
 
     public static void printDiscountDetails(Integer[] details) {
-        lineBreak();
-        System.out.println("<혜택 내역>");
+        printWithNewLine(BENEFITS_DETAILS);
         String[] message = {"크리스마스 디데이 할인: ", "평일 할인: ", "특별 할인: ", "증정 이벤트: "};
         for (int i = 0; i<message.length; i++) {
             if (details[i] != 0) {
@@ -58,8 +68,8 @@ public class OutputView {
     }
 
     public static int printTotalDiscount(Integer[] details) {
-        lineBreak();
-        System.out.println("<총혜택 금액>");
+        printWithNewLine(TOTAL_BENEFITS_AMOUNTS);
+
         int totalDiscount = 0;
         for (int amount : details) {
             totalDiscount += amount;
@@ -69,8 +79,8 @@ public class OutputView {
     }
 
     public static void printFinalPayment(int totalAmount, Integer[] discountAmounts) {
-        lineBreak();
-        System.out.println("<할인 후 예상 결제 금액>");
+        printWithNewLine(TOTAL_PAYMENTS);
+
         int finalPayment = totalAmount;
         for (int i = 0; i<3; i++) {
             finalPayment -= discountAmounts[i];
@@ -79,8 +89,7 @@ public class OutputView {
     }
 
     public static void printEventBadge(int totalDiscount) {
-        lineBreak();
-        System.out.println("<12월 이벤트 배지>");
+        printWithNewLine(DECEMBER_EVENT_BADGE);
         if (totalDiscount < 5000) {
             System.out.println("없음");
         }
