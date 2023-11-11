@@ -3,6 +3,7 @@ package christmas.model;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import christmas.model.customer.OrderMenu;
+import christmas.model.customer.TotalOrderCalculator;
 import java.util.Map;
 import org.junit.jupiter.api.Test;
 
