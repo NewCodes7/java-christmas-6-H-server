@@ -62,6 +62,16 @@ public class OutputView {
         System.out.println("-" + formatCurrency(totalDiscount));
     }
 
+    public static void printFinalPayment(int totalAmount, Integer[] discountAmounts) {
+        lineBreak();
+        System.out.println("<할인 후 예상 결제 금액>");
+        int finalPayment = totalAmount;
+        for (int i = 0; i<3; i++) {
+            finalPayment -= discountAmounts[i];
+        }
+        System.out.println(formatCurrency(finalPayment));
+    }
+
     public static void lineBreak() {
         System.out.print("\n");
     }

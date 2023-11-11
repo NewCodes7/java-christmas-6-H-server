@@ -29,6 +29,8 @@ public class MainController {
         OutputView.printGift(giftPrice);
         Integer[] discountDetails = {discountDDay, discountWeek, discountSpecial, giftPrice};
         OutputView.printDiscountDetails(discountDetails);
+        OutputView.printTotalDiscount(discountDetails);
+        OutputView.printFinalPayment(totalOrderAmount, discountDetails);
     }
 
     private static int visitDateController() {
