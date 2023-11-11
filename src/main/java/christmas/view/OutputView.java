@@ -52,6 +52,16 @@ public class OutputView {
         }
     }
 
+    public static void printTotalDiscount(Integer[] details) {
+        lineBreak();
+        System.out.println("<총혜택 금액>");
+        int totalDiscount = 0;
+        for (int amount : details) {
+            totalDiscount += amount;
+        }
+        System.out.println("-" + formatCurrency(totalDiscount));
+    }
+
     public static void lineBreak() {
         System.out.print("\n");
     }
