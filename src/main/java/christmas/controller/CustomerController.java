@@ -1,6 +1,7 @@
 package christmas.controller;
 
 import christmas.constant.Message;
+import christmas.constant.Numbers;
 import christmas.model.customer.OrderMenu;
 import christmas.model.customer.TotalOrderCalculator;
 import christmas.model.customer.VisitDate;
@@ -11,6 +12,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class CustomerController {
+    private static final int INITIALIZE_ZERO = 0;
     public Integer[] excute() {
         // customer - 날짜 및 메뉴 입력받기, 주문한 메뉴 출력, 할인 전 총주문 금액 출력
         int date = visitDateController();
@@ -23,8 +25,8 @@ public class CustomerController {
 
     private static int visitDateController() {
         VisitDate visitDate = new VisitDate();
-        int date = 0;
-        while (date == 0) {
+        int date = INITIALIZE_ZERO;
+        while (date == INITIALIZE_ZERO) {
             try {
                 date = visitDate.setVisitDate(InputView.readDate());
             } catch (IllegalArgumentException e) {

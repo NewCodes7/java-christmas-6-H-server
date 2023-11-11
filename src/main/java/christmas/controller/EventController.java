@@ -1,33 +1,37 @@
 package christmas.controller;
 
 import christmas.constant.EventBadge;
+import christmas.constant.MenuInfo;
 import christmas.model.event.DiscountChristmasDDay;
 import christmas.model.event.DiscountSpecial;
 import christmas.model.event.DiscountWeek;
 import christmas.model.event.GiftPromotion;
 import christmas.view.OutputView;
-import java.util.Map;
 
 public class EventController {
+    private static final String INITIALIZE_NONE = "없음";
+    private static final String GIFT_CHAMPAGNE = "샴페인 1개";
+    private static final int INITIALIZE_ZERO = 0;
+    private static final int MIN_AMOUNT_FOR_STAR_BADGE = 5000;
+    private static final int MIN_AMOUNT_FOR_TREE_BADGE = 10000;
+    private static final int MIN_AMOUNT_FOR_SANTA_BADGE = 20000;
+    private static final int INDEX_DATE = 0;
+    private static final int INDEX_TOTAL_ORDER_AMOUNTS = 1;
+    private static final int INDEX_DISCOUNT_WEEK_QUANTITY = 2;
+    public static final int ACTUAL_DISCOUNT_COUNT = 3;
 
     public void excute(Integer[] data) {
-        int totalOrderAmount = data[1];
         Integer[] discountDetails = excuteDiscountResult(data);
-        excuteFinalResult(discountDetails, totalOrderAmount);
+        excuteFinalResult(discountDetails, data[INDEX_TOTAL_ORDER_AMOUNTS]);
     }
 
     private static Integer[] excuteDiscountResult(Integer[] data) {
-        int date = data[0];
-        int totalOrderAmount = data[1];
-        int discountWeekQuantity = data[2];
+        int giftPrice = giftPromotionController(data[INDEX_TOTAL_ORDER_AMOUNTS]);
+        int discountDDay = discountChristmasDDayConroller(data[INDEX_DATE]);
+        int discountWeek = discountWeekConroller(data[INDEX_DISCOUNT_WEEK_QUANTITY]);
+        int discountSpecial = discountSpecialController(data[INDEX_DATE]);
 
-        int giftPrice = giftPromotionController(totalOrderAmount);
-        int discountDDay = discountChristmasDDayConroller(date);
-        int discountWeek = discountWeekConroller(discountWeekQuantity);
-        int discountSpecial = discountSpecialController(date);
-        Integer[] discountDetails = {discountDDay, discountWeek, discountSpecial, giftPrice};
-
-        return discountDetails;
+        return new Integer[]{discountDDay, discountWeek, discountSpecial, giftPrice};
     }
 
     private static void excuteFinalResult(Integer[] discountDetails, int totalOrderAmount) {
@@ -55,9 +59,9 @@ public class EventController {
     private static int giftPromotionController(int totalOrderAmount) {
         GiftPromotion giftPromotion = new GiftPromotion();
         int giftPrice = giftPromotion.setGift(totalOrderAmount);
-        String message = "없음";
-        if (giftPrice == 25000) {
-            message = "샴페인 1개";
+        String message = INITIALIZE_NONE;
+        if (giftPrice == MenuInfo.CHAMPAGNE.getPrice()) {
+            message = GIFT_CHAMPAGNE;
         }
         OutputView.printGift(message);
         return giftPrice;
@@ -65,20 +69,20 @@ public class EventController {
 
     private static void checkEventBadge(int totalDiscount) {
         String badge = EventBadge.NON.getBadge();
-        if (totalDiscount >= 5000 && totalDiscount < 10000) {
+        if (totalDiscount >= MIN_AMOUNT_FOR_STAR_BADGE && totalDiscount < MIN_AMOUNT_FOR_TREE_BADGE) {
             badge = EventBadge.STAR.getBadge();
         }
-        if (totalDiscount >= 10000 && totalDiscount < 20000) {
+        if (totalDiscount >= MIN_AMOUNT_FOR_TREE_BADGE && totalDiscount < MIN_AMOUNT_FOR_SANTA_BADGE) {
             badge = EventBadge.TREE.getBadge();
         }
-        if (totalDiscount >= 20000) {
+        if (totalDiscount >= MIN_AMOUNT_FOR_SANTA_BADGE) {
             badge = EventBadge.SANTA.getBadge();
         }
         OutputView.printEventBadge(badge);
     }
 
     private static int calculateTotalDiscounted(Integer[] details) {
-        int totalDiscount = 0;
+        int totalDiscount = INITIALIZE_ZERO;
         for (int amount : details) {
             totalDiscount += amount;
         }
@@ -88,7 +92,7 @@ public class EventController {
 
     private static void calculateFinalPayment(int totalAmount, Integer[] discountAmounts) {
         int finalPayment = totalAmount;
-        for (int i = 0; i<3; i++) {
+        for (int i = INITIALIZE_ZERO; i < ACTUAL_DISCOUNT_COUNT; i++) {
             finalPayment -= discountAmounts[i];
         }
         OutputView.printFinalPayment(finalPayment);
