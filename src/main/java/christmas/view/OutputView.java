@@ -21,6 +21,8 @@ public class OutputView {
     private static final String MINUS = "-";
     private static final String NONE = "없음";
     private static final int ZERO = 0;
+    public static final String TIP_CHAMPAGNE_MESSAGE = "[TIP] 고객님께서는 샴페인을 주문하시지 않으셔도 샴페인 1개가 무료로 제공됩니다.";
+    public static final String FINAL_PAYMENT_WIHTOUT_CHAMPAGNE = " (샴페인을 별도로 주문하지 않을 경우 가격)";
 
     public static void print(String message) {
         System.out.println(message);
@@ -76,6 +78,11 @@ public class OutputView {
     public static void printFinalPayment(int finalPayment) {
         printWithNewLine(TOTAL_PAYMENTS.getMessage());
         System.out.println(formatCurrency(finalPayment));
+    }
+
+    public static void printFinalPaymentForChampagne(int finalPayment) {
+        System.out.println(TIP_CHAMPAGNE_MESSAGE);
+        System.out.println(formatCurrency(finalPayment) + FINAL_PAYMENT_WIHTOUT_CHAMPAGNE);
     }
 
     public static void printEventBadge(String badge) {

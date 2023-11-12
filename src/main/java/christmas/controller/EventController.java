@@ -1,5 +1,6 @@
 package christmas.controller;
 
+import static christmas.constant.MenuInfo.CHAMPAGNE;
 import static christmas.constant.event.EventBadge.NON;
 import static christmas.constant.event.EventBadge.SANTA;
 import static christmas.constant.event.EventBadge.STAR;
@@ -7,7 +8,6 @@ import static christmas.constant.event.EventBadge.TREE;
 import static christmas.constant.Numbers.INITIALIZE_ZERO;
 
 import christmas.constant.event.EventMessage;
-import christmas.constant.MenuInfo;
 import christmas.model.event.DiscountChristmasDDay;
 import christmas.model.event.DiscountSpecial;
 import christmas.model.event.DiscountWeek;
@@ -19,11 +19,13 @@ public class EventController {
     private static final int INDEX_TOTAL_ORDER_AMOUNTS = 1;
     private static final int INDEX_DISCOUNT_WEEK_QUANTITY = 2;
     public static final int ACTUAL_DISCOUNT_COUNT = 3;
+    public static final int INDEX_CHAMPAGNE_COUNT = 3;
+    public static final int ZERO = 0;
 
     public void excute(Integer[] data) {
         Integer[] discountDetails = excuteEventDiscounts(data);
         OutputView.printDiscountDetails(discountDetails);
-        calculateFinalPayment(data[INDEX_TOTAL_ORDER_AMOUNTS], discountDetails);
+        calculateFinalPayment(discountDetails, data[INDEX_TOTAL_ORDER_AMOUNTS], data[INDEX_CHAMPAGNE_COUNT]);
         checkEventBadge(calculateTotalDiscounted(discountDetails));
     }
 
@@ -54,7 +56,7 @@ public class EventController {
         GiftPromotion giftPromotion = new GiftPromotion();
         int giftPrice = giftPromotion.setGift(totalOrderAmount);
         String message = EventMessage.NONE.getMessage();
-        if (giftPrice == MenuInfo.CHAMPAGNE.getPrice()) {
+        if (giftPrice == CHAMPAGNE.getPrice()) {
             message = EventMessage.GIFT_CHAMPAGNE.getMessage();
         }
         OutputView.printGift(message);
@@ -84,11 +86,18 @@ public class EventController {
         return totalDiscount;
     }
 
-    private static void calculateFinalPayment(int totalAmount, Integer[] discountAmounts) {
+    private static void calculateFinalPayment(Integer[] discountAmounts, int totalAmount, int champagneCount) {
         int finalPayment = totalAmount;
         for (int i = INITIALIZE_ZERO.getValue(); i < ACTUAL_DISCOUNT_COUNT; i++) {
             finalPayment -= discountAmounts[i];
         }
         OutputView.printFinalPayment(finalPayment);
+        calculateFinalPaymentForChampagne(discountAmounts, finalPayment, champagneCount);
+    }
+
+    private static void calculateFinalPaymentForChampagne(Integer[] discountAmounts, int finalPayment, int champagneCount) {
+        if (champagneCount != ZERO && discountAmounts[INDEX_CHAMPAGNE_COUNT] == CHAMPAGNE.getPrice()) {
+            OutputView.printFinalPaymentForChampagne(finalPayment - CHAMPAGNE.getPrice());
+        }
     }
 }
