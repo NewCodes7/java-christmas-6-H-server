@@ -2,7 +2,6 @@ package christmas.model.customer;
 
 import christmas.constant.MenuInfo;
 import christmas.constant.Numbers;
-import java.awt.Menu;
 import java.util.Map;
 
 public class TotalOrderCalculator {

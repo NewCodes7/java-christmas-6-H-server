@@ -4,6 +4,7 @@ import static christmas.constant.ErrorMessage.INVALID_ORDER;
 import static christmas.constant.ErrorMessage.INVALID_ORDER_DRINK;
 import static christmas.constant.ErrorMessage.INVALID_ORDER_LIMIT;
 import static christmas.constant.ErrorMessage.INVALID_ORDER_QUANTITY;
+import static christmas.constant.ErrorMessage.INVALID_ORDER_UNIQUE_MENU;
 import static christmas.constant.event.EventNumbers.MAX_TOTAL_ORDER_LIMIT;
 
 import christmas.constant.ErrorMessage;
@@ -37,19 +38,19 @@ public class OrderMenu {
         return input.split(ORDER_COMMA);
     }
 
-    private void validate(String[] input) {
+    private void validate(String[] ordered) {
         int totalOrderQuantity = Numbers.INITIALIZE_ZERO.getValue();
         Set<String> menuChoices = new HashSet<>();
-        for (String item : input) {
+        for (String item : ordered) {
             String[] parts = item.split(ORDER_HYPHEN);
             menuChoices.add(parts[INDEX_ORDERED_MENU]);
-
             validateValidHyphenFormat(parts);
             validateValidMenu(parts);
             validateOrderQuantity(parts);
             totalOrderQuantity = validateTotalOrderQuantityUnderLimit(parts, totalOrderQuantity);
         }
         validateNotOnlyDrinks(menuChoices);
+        validateIsMenuUnique(ordered, menuChoices);
     }
 
     private void validateValidHyphenFormat(String[] parts) {
@@ -93,6 +94,13 @@ public class OrderMenu {
         if (menuChoices.isEmpty()) {
             throw new IllegalArgumentException(INVALID_ORDER.getErrorMessage()
                     + INVALID_ORDER_DRINK.getMessage());
+        }
+    }
+
+    private void validateIsMenuUnique(String[] ordered, Set<String> menuChoices) {
+        if(ordered.length != menuChoices.size()) {
+            throw new IllegalArgumentException(INVALID_ORDER.getErrorMessage()
+                    + INVALID_ORDER_UNIQUE_MENU.getMessage());
         }
     }
 }

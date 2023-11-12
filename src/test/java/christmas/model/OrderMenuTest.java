@@ -58,4 +58,12 @@ class OrderMenuTest {
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessageContaining("[ERROR] 유효하지 않은 주문입니다. 다시 입력해 주세요.\n음료만 주문할 수 없습니다.");
     }
+
+    @ParameterizedTest
+    @ValueSource(strings = {"타파스-1,타파스-1", "양송이수프-1,바비큐립-2,바비큐립-1,제로콜라-1"})
+    void 예외_중복해서_주문한_경우(String menu) {
+        assertThatThrownBy(() -> new OrderMenu().setOrderMenu(menu))
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessageContaining("[ERROR] 유효하지 않은 주문입니다. 다시 입력해 주세요.\n메뉴를 중복해서 입력할 수 없습니다.");
+    }
 }
