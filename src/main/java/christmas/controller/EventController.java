@@ -21,6 +21,7 @@ public class EventController {
     public static final int ACTUAL_DISCOUNT_COUNT = 3;
     public static final int INDEX_CHAMPAGNE_COUNT = 3;
     public static final int ZERO = 0;
+    public static final int PECENTAGE_NUMBER = 100;
 
     public void excute(Integer[] data) {
         Integer[] discountDetails = excuteEventDiscounts(data);
@@ -92,13 +93,20 @@ public class EventController {
         for (int i = INITIALIZE_ZERO.getValue(); i < ACTUAL_DISCOUNT_COUNT; i++) {
             finalPayment -= discountAmounts[i];
         }
-        OutputView.printFinalPayment(finalPayment);
-        calculateFinalPaymentForChampagne(discountAmounts, finalPayment, champagneCount);
+        double discountRate = calculateDiscountRate(totalAmount, finalPayment);
+        OutputView.printFinalPayment(finalPayment, discountRate);
+        calculateFinalPaymentForChampagne(discountAmounts, finalPayment, champagneCount, totalAmount);
     }
 
-    private static void calculateFinalPaymentForChampagne(Integer[] discountAmounts, int finalPayment, int champagneCount) {
+    private static void calculateFinalPaymentForChampagne(Integer[] discountAmounts, int finalPayment, int champagneCount, int totalAmount) {
         if (champagneCount != ZERO && discountAmounts[INDEX_CHAMPAGNE_COUNT] == CHAMPAGNE.getPrice()) {
-            OutputView.printFinalPaymentForChampagne(finalPayment - CHAMPAGNE.getPrice());
+            int finalPaymentWithoutChampagne = finalPayment - CHAMPAGNE.getPrice();
+            double discountRate = calculateDiscountRate(totalAmount, finalPaymentWithoutChampagne);
+            OutputView.printFinalPaymentForChampagne(finalPaymentWithoutChampagne, discountRate);
         }
+    }
+
+    private static double calculateDiscountRate(int totalAmount, int finalAmount) {
+        return ((double) (totalAmount - finalAmount) / totalAmount) * PECENTAGE_NUMBER;
     }
 }

@@ -23,6 +23,8 @@ public class OutputView {
     private static final int ZERO = 0;
     public static final String TIP_CHAMPAGNE_MESSAGE = "[TIP] 고객님께서는 샴페인을 주문하시지 않으셔도 샴페인 1개가 무료로 제공됩니다.";
     public static final String FINAL_PAYMENT_WIHTOUT_CHAMPAGNE = "샴페인을 별도로 주문하지 않을 경우 가격: ";
+    public static final String FORMAT_PERCENT = "%.1f%%";
+    public static final String DISCOUNT_RATE_MESSAGE = "%s (적용된 할인율: %s)";
 
     public static void print(String message) {
         System.out.println(message);
@@ -75,14 +77,18 @@ public class OutputView {
         System.out.println(MINUS + formatCurrency(totalDiscount));
     }
 
-    public static void printFinalPayment(int finalPayment) {
+    public static void printFinalPayment(int finalPayment, double discountRate) {
         printWithNewLine(TOTAL_PAYMENTS.getMessage());
-        System.out.println(formatCurrency(finalPayment));
+        String formattedDiscountRate = String.format(FORMAT_PERCENT, discountRate);
+        String finalPaymentMessage = String.format(DISCOUNT_RATE_MESSAGE, formatCurrency(finalPayment), formattedDiscountRate);
+        System.out.println(finalPaymentMessage);
     }
 
-    public static void printFinalPaymentForChampagne(int finalPayment) {
+    public static void printFinalPaymentForChampagne(int finalPayment, double discountRate) {
         System.out.println(TIP_CHAMPAGNE_MESSAGE);
-        System.out.println(FINAL_PAYMENT_WIHTOUT_CHAMPAGNE + formatCurrency(finalPayment));
+        String formattedDiscountRate = String.format(FORMAT_PERCENT, discountRate);
+        String finalPaymentMessage = String.format(DISCOUNT_RATE_MESSAGE, formatCurrency(finalPayment), formattedDiscountRate);
+        System.out.println(FINAL_PAYMENT_WIHTOUT_CHAMPAGNE + finalPaymentMessage);
     }
 
     public static void printEventBadge(String badge) {
