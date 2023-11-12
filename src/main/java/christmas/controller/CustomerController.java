@@ -20,7 +20,7 @@ public class CustomerController {
         int totalOrderAmount = totalOrderCalculator(orderedMenu);
 
         int discountWeekQuantity = DiscountWeek.calculateDiscountedOrderQuantity(orderedMenu, date); // 평일 혹은 주말 할인에 적용되는 음식 개수
-        int orderedChampagneCount = orderedMenu.get(MenuInfo.CHAMPAGNE.getName());
+        int orderedChampagneCount = checkChampagne(orderedMenu);
         return new Integer[]{date, totalOrderAmount, discountWeekQuantity, orderedChampagneCount};
     }
 
@@ -57,5 +57,13 @@ public class CustomerController {
         int totalOrderAmount = totalOrderCalculator.calculateTotalOrder(orderedMenu);
         OutputView.printTotalOrderAmount(totalOrderAmount);
         return totalOrderAmount;
+    }
+
+    private static int checkChampagne(Map<String, Integer> orderedMenu) {
+        int orderedChampagneCount = INITIALIZE_ZERO.getValue();
+        if (orderedMenu.get(MenuInfo.CHAMPAGNE.getName()) != null) {
+            orderedChampagneCount = orderedMenu.get(MenuInfo.CHAMPAGNE.getName());
+        }
+        return orderedChampagneCount;
     }
 }

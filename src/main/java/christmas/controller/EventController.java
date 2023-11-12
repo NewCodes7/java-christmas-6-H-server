@@ -25,8 +25,9 @@ public class EventController {
     public void excute(Integer[] data) {
         Integer[] discountDetails = excuteEventDiscounts(data);
         OutputView.printDiscountDetails(discountDetails);
+        int totalDiscountedAmount = calculateTotalDiscounted(discountDetails);
         calculateFinalPayment(discountDetails, data[INDEX_TOTAL_ORDER_AMOUNTS], data[INDEX_CHAMPAGNE_COUNT]);
-        checkEventBadge(calculateTotalDiscounted(discountDetails));
+        checkEventBadge(totalDiscountedAmount);
     }
 
     private static Integer[] excuteEventDiscounts(Integer[] data) {
