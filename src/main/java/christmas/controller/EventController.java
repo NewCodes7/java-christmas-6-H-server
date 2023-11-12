@@ -35,8 +35,8 @@ public class EventController {
     }
 
     private static void excuteFinalResult(Integer[] discountDetails, int totalOrderAmount) {
-        int totalDiscount = calculateTotalDiscounted(discountDetails);
         OutputView.printDiscountDetails(discountDetails);
+        int totalDiscount = calculateTotalDiscounted(discountDetails);
         calculateFinalPayment(totalOrderAmount, discountDetails);
         checkEventBadge(totalDiscount);
     }
