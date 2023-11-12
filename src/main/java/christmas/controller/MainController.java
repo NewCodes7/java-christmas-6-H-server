@@ -13,10 +13,4 @@ public class MainController {
         Integer[] data = customerController.excute();
         eventController.excute(data);
     }
-
-
-
-
-
-
 }

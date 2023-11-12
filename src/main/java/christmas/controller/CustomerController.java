@@ -3,8 +3,6 @@ package christmas.controller;
 import static christmas.constant.Message.EXPECTED_EVENT;
 import static christmas.constant.Numbers.INITIALIZE_ZERO;
 
-import christmas.constant.Message;
-import christmas.constant.Numbers;
 import christmas.model.customer.OrderMenu;
 import christmas.model.customer.TotalOrderCalculator;
 import christmas.model.customer.VisitDate;
@@ -16,13 +14,11 @@ import java.util.Map;
 
 public class CustomerController {
     public Integer[] excute() {
-        // customer - 날짜 및 메뉴 입력받기, 주문한 메뉴 출력, 할인 전 총주문 금액 출력
         int date = visitDateController();
         Map<String, Integer> orderedMenu = orderMenuController();
         int totalOrderAmount = totalOrderCalculator(orderedMenu);
-        int discountWeekQuantity = DiscountWeek.calculateDiscountedOrderQuantity(orderedMenu, date);
-        Integer[] data = {date, totalOrderAmount, discountWeekQuantity};
-        return data;
+        int discountWeekQuantity = DiscountWeek.calculateDiscountedOrderQuantity(orderedMenu, date); // 평일 혹은 주말 할인에 적용되는 음식 개수
+        return new Integer[]{date, totalOrderAmount, discountWeekQuantity};
     }
 
     private static int visitDateController() {

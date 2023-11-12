@@ -21,24 +21,18 @@ public class EventController {
     public static final int ACTUAL_DISCOUNT_COUNT = 3;
 
     public void excute(Integer[] data) {
-        Integer[] discountDetails = excuteDiscountResult(data);
-        excuteFinalResult(discountDetails, data[INDEX_TOTAL_ORDER_AMOUNTS]);
+        Integer[] discountDetails = excuteEventDiscounts(data);
+        OutputView.printDiscountDetails(discountDetails);
+        calculateFinalPayment(data[INDEX_TOTAL_ORDER_AMOUNTS], discountDetails);
+        checkEventBadge(calculateTotalDiscounted(discountDetails));
     }
 
-    private static Integer[] excuteDiscountResult(Integer[] data) {
+    private static Integer[] excuteEventDiscounts(Integer[] data) {
         int giftPrice = giftPromotionController(data[INDEX_TOTAL_ORDER_AMOUNTS]);
         int discountDDay = discountChristmasDDayConroller(data[INDEX_DATE]);
         int discountWeek = discountWeekConroller(data[INDEX_DISCOUNT_WEEK_QUANTITY]);
         int discountSpecial = discountSpecialController(data[INDEX_DATE]);
-
         return new Integer[]{discountDDay, discountWeek, discountSpecial, giftPrice};
-    }
-
-    private static void excuteFinalResult(Integer[] discountDetails, int totalOrderAmount) {
-        OutputView.printDiscountDetails(discountDetails);
-        int totalDiscount = calculateTotalDiscounted(discountDetails);
-        calculateFinalPayment(totalOrderAmount, discountDetails);
-        checkEventBadge(totalDiscount);
     }
 
     private static int discountChristmasDDayConroller(int date) {
