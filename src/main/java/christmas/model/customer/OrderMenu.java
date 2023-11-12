@@ -11,6 +11,7 @@ import christmas.constant.ErrorMessage;
 import christmas.constant.event.EventNumbers;
 import christmas.constant.MenuInfo;
 import christmas.constant.Numbers;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
@@ -88,10 +89,11 @@ public class OrderMenu {
     }
 
     private void validateNotOnlyDrinks(Set<String> menuChoices) {
+        Set<String> menuChoicesCopy = new HashSet<>(menuChoices);
         for(String drink : MenuInfo.getDrinkNames()) {
-            menuChoices.remove(drink);
+            menuChoicesCopy.remove(drink);
         }
-        if (menuChoices.isEmpty()) {
+        if (menuChoicesCopy.isEmpty()) {
             throw new IllegalArgumentException(INVALID_ORDER.getErrorMessage()
                     + INVALID_ORDER_DRINK.getMessage());
         }
