@@ -12,6 +12,7 @@ import static christmas.constant.event.EventMessage.TOTAL_PAYMENTS;
 import christmas.constant.event.DiscountType;
 import christmas.constant.event.EventBadge;
 import christmas.constant.event.EventMessage;
+import christmas.model.customer.TotalOrderCalculator;
 import java.text.DecimalFormat;
 import java.util.Arrays;
 import java.util.Map;

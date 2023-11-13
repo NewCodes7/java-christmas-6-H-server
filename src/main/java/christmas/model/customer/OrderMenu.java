@@ -11,7 +11,6 @@ import christmas.constant.ErrorMessage;
 import christmas.constant.event.EventNumbers;
 import christmas.constant.MenuInfo;
 import christmas.constant.Numbers;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;

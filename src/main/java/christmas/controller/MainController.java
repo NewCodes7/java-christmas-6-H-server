@@ -1,5 +1,7 @@
 package christmas.controller;
 
+import christmas.view.OutputView;
+
 public class MainController {
     private final CustomerController customerController;
     private final EventController eventController;

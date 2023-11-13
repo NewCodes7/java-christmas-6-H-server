@@ -7,6 +7,7 @@ import static christmas.constant.event.EventBadge.STAR;
 import static christmas.constant.event.EventBadge.TREE;
 import static christmas.constant.Numbers.INITIALIZE_ZERO;
 
+import christmas.model.customer.TotalOrderCalculator;
 import christmas.model.event.DiscountChristmasDDay;
 import christmas.model.event.DiscountSpecial;
 import christmas.model.event.DiscountWeek;
@@ -21,7 +22,6 @@ public class EventController {
     public static final int INDEX_CHAMPAGNE_COUNT = 3;
     public static final int ZERO_DISCOUNT = 0;
     public static final int PECENTAGE_NUMBER = 100;
-    public static final int MIN_PRICE_FOR_DISCOUNT = 10000;
     public static final int INDEX_GIFT = 3;
 
     public void excute(Integer[] data) {
@@ -35,7 +35,7 @@ public class EventController {
     }
 
     private static Integer[] excuteEventDiscounts(Integer[] data) {
-        if (data[INDEX_TOTAL_ORDER_AMOUNTS] < MIN_PRICE_FOR_DISCOUNT) {
+        if (!TotalOrderCalculator.checkEventApplied()) {
             return new Integer[]{ZERO_DISCOUNT, ZERO_DISCOUNT, ZERO_DISCOUNT, ZERO_DISCOUNT};
         }
         int giftPrice = giftPromotionController(data[INDEX_TOTAL_ORDER_AMOUNTS]);
