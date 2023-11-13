@@ -22,7 +22,7 @@ public class EventController {
     public static final int ZERO_DISCOUNT = 0;
     public static final int PECENTAGE_NUMBER = 100;
     public static final int MIN_PRICE_FOR_DISCOUNT = 10000;
-    public static final int INDEX_GIFT = 0;
+    public static final int INDEX_GIFT = 3;
 
     public void excute(Integer[] data) {
         Integer[] discountDetails = excuteEventDiscounts(data);
@@ -62,7 +62,7 @@ public class EventController {
 
     private static int giftPromotionController(int totalOrderAmount) {
         GiftPromotion giftPromotion = new GiftPromotion();
-        int giftPrice = giftPromotion.setGift(totalOrderAmount);
+        int giftPrice = -giftPromotion.setGift(totalOrderAmount);
         return giftPrice;
     }
 
@@ -91,7 +91,7 @@ public class EventController {
     private static void calculateFinalPayment(Integer[] discountAmounts, int totalAmount, int champagneCount) {
         int finalPayment = totalAmount;
         for (int i = INITIALIZE_ZERO.getValue(); i < ACTUAL_DISCOUNT_COUNT; i++) {
-            finalPayment -= discountAmounts[i];
+            finalPayment += discountAmounts[i];
         }
         double discountRate = calculateDiscountRate(totalAmount, finalPayment);
         OutputView.printFinalPayment(finalPayment, discountRate);

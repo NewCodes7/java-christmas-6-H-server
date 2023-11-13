@@ -61,7 +61,7 @@ public class OutputView {
     public static void printGift(int giftPrice) {
         printWithNewLine(GIFT.getMessage());
         String message = EventMessage.NONE.getMessage();
-        if (giftPrice == CHAMPAGNE.getPrice()) {
+        if (-giftPrice == CHAMPAGNE.getPrice()) {
             message = EventMessage.GIFT_CHAMPAGNE.getMessage();
         }
         System.out.println(message);
@@ -71,7 +71,7 @@ public class OutputView {
         printWithNewLine(BENEFITS_DETAILS.getMessage());
         for (int i = ZERO; i<details.length; i++) {
             if (details[i] != ZERO) {
-                System.out.println(DiscountType.values()[i].getDisplayName() + MINUS + formatCurrency(details[i]));
+                System.out.println(DiscountType.values()[i].getDisplayName() + formatCurrency(details[i]));
             }
         }
         if (Arrays.stream(details).allMatch(number -> number == ZERO)) {
@@ -81,7 +81,7 @@ public class OutputView {
 
     public static void printTotalDiscount(int totalDiscount) {
         printWithNewLine(TOTAL_BENEFITS_AMOUNTS.getMessage());
-        System.out.println(MINUS + formatCurrency(totalDiscount));
+        System.out.println(formatCurrency(totalDiscount));
     }
 
     public static void printFinalPayment(int finalPayment, double discountRate) {
@@ -102,7 +102,6 @@ public class OutputView {
         printWithNewLine(DECEMBER_EVENT_BADGE.getMessage());
         System.out.println(badge);
         System.out.println(BADGE_MESSAGE);
-
     }
 
     public static void lineBreak() {
