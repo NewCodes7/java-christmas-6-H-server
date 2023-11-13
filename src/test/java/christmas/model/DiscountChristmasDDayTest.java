@@ -26,13 +26,13 @@ class DiscountChristmasDDayTest {
 
     private int getExpectedDiscount(int date) {
         if (date == 1) {
-            return 1000;
+            return -1000;
         }
         if (date == 11) {
-            return 2000;
+            return -2000;
         }
         if (date == 25) {
-            return 3400;
+            return -3400;
         }
         return 0;
     }

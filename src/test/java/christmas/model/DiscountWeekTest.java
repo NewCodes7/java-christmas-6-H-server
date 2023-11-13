@@ -14,7 +14,7 @@ class DiscountWeekTest {
         DiscountWeek discountWeek = new DiscountWeek();
         int quantity = discountWeek.calculateDiscountedOrderQuantity(orderedmenu, 15);
 
-        assertThat(discountWeek.setDiscount(quantity)).isEqualTo(4046);
+        assertThat(discountWeek.setDiscount(quantity)).isEqualTo(-4046);
     }
 
     @Test
@@ -23,6 +23,6 @@ class DiscountWeekTest {
         DiscountWeek discountWeek = new DiscountWeek();
         int quantity = discountWeek.calculateDiscountedOrderQuantity(orderedmenu, 8);
 
-        assertThat(discountWeek.setDiscount(quantity)).isEqualTo(4046);
+        assertThat(discountWeek.setDiscount(quantity)).isEqualTo(-4046);
     }
 }

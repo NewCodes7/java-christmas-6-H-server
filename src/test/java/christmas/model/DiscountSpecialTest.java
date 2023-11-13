@@ -16,6 +16,6 @@ class DiscountSpecialTest {
     @ParameterizedTest
     @ValueSource(ints = {3, 10, 25})
     void 특별_할인_적용(int date) {
-        assertThat(new DiscountSpecial().setDiscount(date)).isEqualTo(1000);
+        assertThat(new DiscountSpecial().setDiscount(date)).isEqualTo(-1000);
     }
 }
