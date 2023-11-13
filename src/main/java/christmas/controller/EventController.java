@@ -68,6 +68,7 @@ public class EventController {
 
     private static void checkEventBadge(int totalDiscount) {
         String badge = NON.getBadge();
+        totalDiscount = -totalDiscount;
         if (totalDiscount >= STAR.getMinTotalDiscount() && totalDiscount < TREE.getMinTotalDiscount()) {
             badge = STAR.getBadge();
         }

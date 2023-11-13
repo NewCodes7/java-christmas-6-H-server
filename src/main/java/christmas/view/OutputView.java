@@ -13,7 +13,6 @@ import christmas.constant.event.DiscountType;
 import christmas.constant.event.EventBadge;
 import christmas.constant.event.EventMessage;
 import christmas.constant.event.EventNumbers;
-import christmas.model.customer.TotalOrderCalculator;
 import java.text.DecimalFormat;
 import java.util.Arrays;
 import java.util.Map;
@@ -29,7 +28,7 @@ public class OutputView {
     public static final String FINAL_PAYMENT_WIHTOUT_CHAMPAGNE = "샴페인을 별도로 주문하지 않을 경우 가격: ";
     public static final String FORMAT_PERCENT = "%.1f%%";
     public static final String DISCOUNT_RATE_MESSAGE = "%s (적용된 할인율: %s)";
-    public static final String BADGE_MESSAGE = "[TIP] 2024 새해 이벤트에서 해당 배지에 따라 새해 선물을 증정해드립니다!";
+    public static final String TIP_BADGE_MESSAGE = "[TIP] 2024 새해 이벤트에서 해당 배지에 따라 새해 선물을 증정해드립니다!";
 
     public static void print(String message) {
         System.out.println(message);
@@ -104,7 +103,7 @@ public class OutputView {
         printWithNewLine(DECEMBER_EVENT_BADGE.getMessage());
         System.out.println(badge);
         if (!badge.equals(EventBadge.NON.getBadge())) {
-            System.out.println(BADGE_MESSAGE);
+            System.out.println(TIP_BADGE_MESSAGE);
         }
     }
 
