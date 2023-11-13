@@ -10,6 +10,7 @@ import static christmas.constant.event.EventMessage.TOTAL_ORDER_AMOUNTS;
 import static christmas.constant.event.EventMessage.TOTAL_PAYMENTS;
 
 import christmas.constant.event.DiscountType;
+import christmas.constant.event.EventBadge;
 import christmas.constant.event.EventMessage;
 import java.text.DecimalFormat;
 import java.util.Arrays;
@@ -20,7 +21,6 @@ public class OutputView {
     private static final String ORDER_MENU_FORMAT = "%s %d개";
     private static final String PRICE_FORMAT = "###,###원";
     private static final String LINE_BREAK = "\n";
-    private static final String MINUS = "-";
     private static final String NONE = "없음";
     private static final int ZERO = 0;
     public static final String TIP_CHAMPAGNE_MESSAGE = "[TIP] 고객님께서는 샴페인을 주문하시지 않으셔도 샴페인 1개가 무료로 제공됩니다!";
@@ -101,7 +101,9 @@ public class OutputView {
     public static void printEventBadge(String badge) {
         printWithNewLine(DECEMBER_EVENT_BADGE.getMessage());
         System.out.println(badge);
-        System.out.println(BADGE_MESSAGE);
+        if (!badge.equals(EventBadge.NON.getBadge())) {
+            System.out.println(BADGE_MESSAGE);
+        }
     }
 
     public static void lineBreak() {
