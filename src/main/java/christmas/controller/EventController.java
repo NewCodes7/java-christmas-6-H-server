@@ -7,7 +7,6 @@ import static christmas.constant.event.EventBadge.STAR;
 import static christmas.constant.event.EventBadge.TREE;
 import static christmas.constant.Numbers.INITIALIZE_ZERO;
 
-import christmas.constant.event.EventMessage;
 import christmas.model.event.DiscountChristmasDDay;
 import christmas.model.event.DiscountSpecial;
 import christmas.model.event.DiscountWeek;
@@ -23,11 +22,14 @@ public class EventController {
     public static final int ZERO_DISCOUNT = 0;
     public static final int PECENTAGE_NUMBER = 100;
     public static final int MIN_PRICE_FOR_DISCOUNT = 10000;
+    public static final int INDEX_GIFT = 0;
 
     public void excute(Integer[] data) {
         Integer[] discountDetails = excuteEventDiscounts(data);
+        OutputView.printGift(discountDetails[INDEX_GIFT]);
         OutputView.printDiscountDetails(discountDetails);
         int totalDiscountedAmount = calculateTotalDiscounted(discountDetails);
+        OutputView.printTotalDiscount(totalDiscountedAmount);
         calculateFinalPayment(discountDetails, data[INDEX_TOTAL_ORDER_AMOUNTS], data[INDEX_CHAMPAGNE_COUNT]);
         checkEventBadge(totalDiscountedAmount);
     }
@@ -61,11 +63,6 @@ public class EventController {
     private static int giftPromotionController(int totalOrderAmount) {
         GiftPromotion giftPromotion = new GiftPromotion();
         int giftPrice = giftPromotion.setGift(totalOrderAmount);
-        String message = EventMessage.NONE.getMessage();
-        if (giftPrice == CHAMPAGNE.getPrice()) {
-            message = EventMessage.GIFT_CHAMPAGNE.getMessage();
-        }
-        OutputView.printGift(message);
         return giftPrice;
     }
 
@@ -88,7 +85,6 @@ public class EventController {
         for (int amount : details) {
             totalDiscount += amount;
         }
-        OutputView.printTotalDiscount(totalDiscount);
         return totalDiscount;
     }
 

@@ -1,5 +1,6 @@
 package christmas.view;
 
+import static christmas.constant.MenuInfo.CHAMPAGNE;
 import static christmas.constant.event.EventMessage.BENEFITS_DETAILS;
 import static christmas.constant.event.EventMessage.DECEMBER_EVENT_BADGE;
 import static christmas.constant.event.EventMessage.GIFT;
@@ -9,6 +10,7 @@ import static christmas.constant.event.EventMessage.TOTAL_ORDER_AMOUNTS;
 import static christmas.constant.event.EventMessage.TOTAL_PAYMENTS;
 
 import christmas.constant.event.DiscountType;
+import christmas.constant.event.EventMessage;
 import java.text.DecimalFormat;
 import java.util.Arrays;
 import java.util.Map;
@@ -56,8 +58,12 @@ public class OutputView {
         return currencyFormatter.format(amount);
     }
 
-    public static void printGift(String message) {
+    public static void printGift(int giftPrice) {
         printWithNewLine(GIFT.getMessage());
+        String message = EventMessage.NONE.getMessage();
+        if (giftPrice == CHAMPAGNE.getPrice()) {
+            message = EventMessage.GIFT_CHAMPAGNE.getMessage();
+        }
         System.out.println(message);
     }
 
