@@ -12,6 +12,7 @@ import static christmas.constant.event.EventMessage.TOTAL_PAYMENTS;
 import christmas.constant.event.DiscountType;
 import christmas.constant.event.EventBadge;
 import christmas.constant.event.EventMessage;
+import christmas.constant.event.EventNumbers;
 import christmas.model.customer.TotalOrderCalculator;
 import java.text.DecimalFormat;
 import java.util.Arrays;
@@ -107,8 +108,8 @@ public class OutputView {
         }
     }
 
-    public static void printTipMinDiscountApplied() {
-        if (!TotalOrderCalculator.checkEventApplied()) {
+    public static void printTipMinDiscountApplied(int totalOrderAmount) {
+        if (totalOrderAmount < EventNumbers.MIN_PRICE_FOR_DISCOUNT.getValue()) {
             System.out.println("[TIP] 총주문 금액 10,000원 이상부터 이벤트가 적용됩니다.");
         }
     }

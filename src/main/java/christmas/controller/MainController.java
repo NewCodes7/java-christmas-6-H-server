@@ -14,6 +14,6 @@ public class MainController {
     public void excute() {
         Integer[] data = customerController.excute();
         eventController.excute(data);
-        OutputView.printTipMinDiscountApplied();
+        OutputView.printTipMinDiscountApplied(data[1]);
     }
 }
