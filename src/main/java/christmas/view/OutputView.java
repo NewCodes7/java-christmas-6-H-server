@@ -107,6 +107,12 @@ public class OutputView {
         }
     }
 
+    public static void printTipMinDiscountApplied() {
+        if (!TotalOrderCalculator.checkEventApplied()) {
+            System.out.println("[TIP] 총주문 금액 10,000원 이상부터 이벤트가 적용됩니다.");
+        }
+    }
+
     public static void lineBreak() {
         System.out.print(LINE_BREAK);
     }
