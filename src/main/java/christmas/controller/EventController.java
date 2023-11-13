@@ -20,8 +20,9 @@ public class EventController {
     private static final int INDEX_DISCOUNT_WEEK_QUANTITY = 2;
     public static final int ACTUAL_DISCOUNT_COUNT = 3;
     public static final int INDEX_CHAMPAGNE_COUNT = 3;
-    public static final int ZERO = 0;
+    public static final int ZERO_DISCOUNT = 0;
     public static final int PECENTAGE_NUMBER = 100;
+    public static final int MIN_PRICE_FOR_DISCOUNT = 10000;
 
     public void excute(Integer[] data) {
         Integer[] discountDetails = excuteEventDiscounts(data);
@@ -32,6 +33,9 @@ public class EventController {
     }
 
     private static Integer[] excuteEventDiscounts(Integer[] data) {
+        if (data[INDEX_TOTAL_ORDER_AMOUNTS] < MIN_PRICE_FOR_DISCOUNT) {
+            return new Integer[]{ZERO_DISCOUNT, ZERO_DISCOUNT, ZERO_DISCOUNT, ZERO_DISCOUNT};
+        }
         int giftPrice = giftPromotionController(data[INDEX_TOTAL_ORDER_AMOUNTS]);
         int discountDDay = discountChristmasDDayConroller(data[INDEX_DATE]);
         int discountWeek = discountWeekConroller(data[INDEX_DISCOUNT_WEEK_QUANTITY]);
@@ -99,7 +103,7 @@ public class EventController {
     }
 
     private static void calculateFinalPaymentForChampagne(Integer[] discountAmounts, int finalPayment, int champagneCount, int totalAmount) {
-        if (champagneCount != ZERO && discountAmounts[INDEX_CHAMPAGNE_COUNT] == CHAMPAGNE.getPrice()) {
+        if (champagneCount != INITIALIZE_ZERO.getValue() && discountAmounts[INDEX_CHAMPAGNE_COUNT] == CHAMPAGNE.getPrice()) {
             int finalPaymentWithoutChampagne = finalPayment - CHAMPAGNE.getPrice();
             double discountRate = calculateDiscountRate(totalAmount, finalPaymentWithoutChampagne);
             OutputView.printFinalPaymentForChampagne(finalPaymentWithoutChampagne, discountRate);
