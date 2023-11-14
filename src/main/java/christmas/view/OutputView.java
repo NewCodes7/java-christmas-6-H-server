@@ -11,11 +11,14 @@ import static christmas.constant.event.EventMessage.TOTAL_PAYMENTS;
 import static christmas.constant.event.TipMessage.TIP_BADGE_MESSAGE;
 import static christmas.constant.event.TipMessage.TIP_CHAMPAGNE_MESSAGE;
 import static christmas.constant.event.TipMessage.TIP_MIN_EVENT_APPLIED;
+import static christmas.constant.event.TipMessage.TIP_WEEKDAY_DISCOUNT;
+import static christmas.constant.event.TipMessage.TIP_WEEKEND_DISCOUNT;
 
 import christmas.constant.event.DiscountType;
 import christmas.constant.event.EventBadge;
 import christmas.constant.event.EventMessage;
 import christmas.constant.event.EventNumbers;
+import christmas.model.event.DiscountWeek;
 import java.text.DecimalFormat;
 import java.util.Arrays;
 import java.util.Map;
@@ -111,6 +114,15 @@ public class OutputView {
     public static void printTipMinDiscountApplied(int totalOrderAmount) {
         if (totalOrderAmount < EventNumbers.MIN_PRICE_FOR_DISCOUNT.getValue()) {
             System.out.print(TIP_MIN_EVENT_APPLIED.getTipMessage());
+        }
+    }
+
+    public static void printTipWeekDiscount(int date, int discountWeekQuantity) {
+        if (discountWeekQuantity == ZERO && !DiscountWeek.isWeekend(date)) {
+            System.out.println(TIP_WEEKDAY_DISCOUNT.getTipMessage());
+        }
+        if (discountWeekQuantity == ZERO && DiscountWeek.isWeekend(date)) {
+            System.out.println(TIP_WEEKEND_DISCOUNT.getTipMessage());
         }
     }
 

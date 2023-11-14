@@ -27,7 +27,7 @@ public class DiscountWeek {
         return quantity;
     }
 
-    public static List<String> setDiscountCategory(int date) {
+    private static List<String> setDiscountCategory(int date) {
         List<String> discountCategoty = MenuInfo.getDessertNames();
         if(isWeekend(date)){
             discountCategoty = MenuInfo.getMainNames();
@@ -35,7 +35,7 @@ public class DiscountWeek {
         return discountCategoty;
     }
 
-    private static boolean isWeekend(int date) {
+    public static boolean isWeekend(int date) {
         Integer[] weekend = {REFERENCE_FRIDAY, REFERENCE_SATURDAY};
         return Arrays.asList(weekend).contains(date % Numbers.WEEK_LENGTH.getValue());
     }

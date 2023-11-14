@@ -18,7 +18,6 @@ public class CustomerController {
         int date = visitDateController();
         Map<String, Integer> orderedMenu = orderMenuController();
         int totalOrderAmount = totalOrderCalculator(orderedMenu);
-
         int discountWeekQuantity = DiscountWeek.calculateDiscountedOrderQuantity(orderedMenu, date); // 평일 혹은 주말 할인에 적용되는 음식 개수
         int orderedChampagneCount = checkChampagne(orderedMenu);
         return new Integer[]{date, totalOrderAmount, discountWeekQuantity, orderedChampagneCount};
