@@ -8,6 +8,9 @@ import static christmas.constant.event.EventMessage.ORDER_MENU;
 import static christmas.constant.event.EventMessage.TOTAL_BENEFITS_AMOUNTS;
 import static christmas.constant.event.EventMessage.TOTAL_ORDER_AMOUNTS;
 import static christmas.constant.event.EventMessage.TOTAL_PAYMENTS;
+import static christmas.constant.event.TipMessage.TIP_BADGE_MESSAGE;
+import static christmas.constant.event.TipMessage.TIP_CHAMPAGNE_MESSAGE;
+import static christmas.constant.event.TipMessage.TIP_MIN_EVENT_APPLIED;
 
 import christmas.constant.event.DiscountType;
 import christmas.constant.event.EventBadge;
@@ -24,11 +27,9 @@ public class OutputView {
     private static final String LINE_BREAK = "\n";
     private static final String NONE = "없음";
     private static final int ZERO = 0;
-    public static final String TIP_CHAMPAGNE_MESSAGE = "[TIP] 고객님께서는 샴페인을 주문하시지 않으셔도 샴페인 1개가 무료로 제공됩니다!";
     public static final String FINAL_PAYMENT_WIHTOUT_CHAMPAGNE = "샴페인을 별도로 주문하지 않을 경우 가격: ";
     public static final String FORMAT_PERCENT = "%.1f%%";
     public static final String DISCOUNT_RATE_MESSAGE = "%s (적용된 할인율: %s)";
-    public static final String TIP_BADGE_MESSAGE = "[TIP] 2024 새해 이벤트에서 해당 배지에 따라 새해 선물을 증정해드립니다!";
 
     public static void print(String message) {
         System.out.println(message);
@@ -93,7 +94,7 @@ public class OutputView {
     }
 
     public static void printFinalPaymentForChampagne(int finalPayment, double discountRate) {
-        System.out.println(TIP_CHAMPAGNE_MESSAGE);
+        System.out.print(TIP_CHAMPAGNE_MESSAGE.getTipMessage());
         String formattedDiscountRate = String.format(FORMAT_PERCENT, discountRate);
         String finalPaymentMessage = String.format(DISCOUNT_RATE_MESSAGE, formatCurrency(finalPayment), formattedDiscountRate);
         System.out.println(FINAL_PAYMENT_WIHTOUT_CHAMPAGNE + finalPaymentMessage);
@@ -103,13 +104,13 @@ public class OutputView {
         printWithNewLine(DECEMBER_EVENT_BADGE.getMessage());
         System.out.println(badge);
         if (!badge.equals(EventBadge.NON.getBadge())) {
-            System.out.println(TIP_BADGE_MESSAGE);
+            System.out.print(TIP_BADGE_MESSAGE.getTipMessage());
         }
     }
 
     public static void printTipMinDiscountApplied(int totalOrderAmount) {
         if (totalOrderAmount < EventNumbers.MIN_PRICE_FOR_DISCOUNT.getValue()) {
-            System.out.println("[TIP] 총주문 금액 10,000원 이상부터 이벤트가 적용됩니다.");
+            System.out.print(TIP_MIN_EVENT_APPLIED.getTipMessage());
         }
     }
 

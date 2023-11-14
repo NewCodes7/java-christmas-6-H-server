@@ -1,11 +1,13 @@
 package christmas.model.customer;
 
 import static christmas.constant.ErrorMessage.INVALID_ORDER;
-import static christmas.constant.ErrorMessage.INVALID_ORDER_DRINK;
-import static christmas.constant.ErrorMessage.INVALID_ORDER_LIMIT;
-import static christmas.constant.ErrorMessage.INVALID_ORDER_QUANTITY;
-import static christmas.constant.ErrorMessage.INVALID_ORDER_UNIQUE_MENU;
 import static christmas.constant.event.EventNumbers.MAX_TOTAL_ORDER_LIMIT;
+import static christmas.constant.event.TipMessage.TIP_ORDER_DRINK;
+import static christmas.constant.event.TipMessage.TIP_ORDER_FORMAT;
+import static christmas.constant.event.TipMessage.TIP_ORDER_LIMIT;
+import static christmas.constant.event.TipMessage.TIP_ORDER_MENU;
+import static christmas.constant.event.TipMessage.TIP_ORDER_QUANTITY;
+import static christmas.constant.event.TipMessage.TIP_ORDER_UNIQUE_MENU;
 
 import christmas.constant.ErrorMessage;
 import christmas.constant.event.EventNumbers;
@@ -56,14 +58,14 @@ public class OrderMenu {
     private void validateValidHyphenFormat(String[] parts) {
         if (parts.length != VALID_LENGTH) {
             throw new IllegalArgumentException(INVALID_ORDER.getErrorMessage()
-                    + ErrorMessage.INVALID_ORDER_FORMAT.getMessage());
+                    + TIP_ORDER_FORMAT.getTipMessage());
         }
     }
 
     private void validateValidMenu(String[] parts) {
         if (!MenuInfo.contains(parts[INDEX_ORDERED_MENU])) {
             throw new IllegalArgumentException(INVALID_ORDER.getErrorMessage()
-                    + ErrorMessage.INVALID_ORDER_MENU.getMessage());
+                    + TIP_ORDER_MENU.getTipMessage());
         }
     }
 
@@ -74,7 +76,7 @@ public class OrderMenu {
             }
         } catch (IllegalArgumentException e) {
             throw new IllegalArgumentException(INVALID_ORDER.getErrorMessage()
-                    + INVALID_ORDER_QUANTITY.getMessage());
+                    + TIP_ORDER_QUANTITY.getTipMessage());
         }
     }
 
@@ -82,7 +84,7 @@ public class OrderMenu {
         count += Integer.parseInt(parts[INDEX_ORDERED_QUANTITY]);
         if (count > MAX_TOTAL_ORDER_LIMIT.getValue()) {
             throw new IllegalArgumentException(INVALID_ORDER.getErrorMessage()
-                    + INVALID_ORDER_LIMIT.getMessage());
+                    + TIP_ORDER_LIMIT.getTipMessage());
         }
         return count;
     }
@@ -94,14 +96,14 @@ public class OrderMenu {
         }
         if (menuChoicesCopy.isEmpty()) {
             throw new IllegalArgumentException(INVALID_ORDER.getErrorMessage()
-                    + INVALID_ORDER_DRINK.getMessage());
+                    + TIP_ORDER_DRINK.getTipMessage());
         }
     }
 
     private void validateIsMenuUnique(String[] ordered, Set<String> menuChoices) {
         if(ordered.length != menuChoices.size()) {
             throw new IllegalArgumentException(INVALID_ORDER.getErrorMessage()
-                    + INVALID_ORDER_UNIQUE_MENU.getMessage());
+                    + TIP_ORDER_UNIQUE_MENU.getTipMessage());
         }
     }
 }
