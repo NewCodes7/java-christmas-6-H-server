@@ -97,12 +97,11 @@ public class EventController {
         }
         double discountRate = calculateDiscountRate(totalAmount, finalPayment);
         OutputView.printFinalPayment(finalPayment, discountRate);
-        calculateFinalPaymentForChampagne(discountAmounts, finalPayment, champagneCount, totalAmount);
+        calculateFinalPaymentForChampagne(finalPayment, champagneCount, totalAmount);
     }
 
-    private static void calculateFinalPaymentForChampagne(Integer[] discountAmounts, int finalPayment, int champagneCount, int totalAmount) {
+    private static void calculateFinalPaymentForChampagne(int finalPayment, int champagneCount, int totalAmount) {
         if (champagneCount != INITIALIZE_ZERO.getValue()
-                && discountAmounts[INDEX_CHAMPAGNE_COUNT] == -CHAMPAGNE.getPrice()
                 && totalAmount >= MIN_TOTAL_ORDER_FOR_GIFT.getValue() + CHAMPAGNE.getPrice()) {
             int finalPaymentWithoutChampagne = finalPayment - CHAMPAGNE.getPrice();
             double discountRate = calculateDiscountRate(totalAmount, finalPaymentWithoutChampagne);
