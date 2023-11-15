@@ -7,6 +7,7 @@ import static christmas.constant.event.EventBadge.STAR;
 import static christmas.constant.event.EventBadge.TREE;
 import static christmas.constant.Numbers.INITIALIZE_ZERO;
 import static christmas.constant.event.EventNumbers.MIN_PRICE_FOR_DISCOUNT;
+import static christmas.constant.event.EventNumbers.MIN_TOTAL_ORDER_FOR_GIFT;
 
 import christmas.model.event.DiscountChristmasDDay;
 import christmas.model.event.DiscountSpecial;
@@ -100,7 +101,9 @@ public class EventController {
     }
 
     private static void calculateFinalPaymentForChampagne(Integer[] discountAmounts, int finalPayment, int champagneCount, int totalAmount) {
-        if (champagneCount != INITIALIZE_ZERO.getValue() && discountAmounts[INDEX_CHAMPAGNE_COUNT] == CHAMPAGNE.getPrice()) {
+        if (champagneCount != INITIALIZE_ZERO.getValue()
+                && discountAmounts[INDEX_CHAMPAGNE_COUNT] == -CHAMPAGNE.getPrice()
+                && totalAmount >= MIN_TOTAL_ORDER_FOR_GIFT.getValue() + CHAMPAGNE.getPrice()) {
             int finalPaymentWithoutChampagne = finalPayment - CHAMPAGNE.getPrice();
             double discountRate = calculateDiscountRate(totalAmount, finalPaymentWithoutChampagne);
             OutputView.printFinalPaymentForChampagne(finalPaymentWithoutChampagne, discountRate);

@@ -93,19 +93,21 @@ public class OutputView {
         printWithNewLine(TOTAL_PAYMENTS.getMessage());
         String formattedDiscountRate = String.format(FORMAT_PERCENT, discountRate);
         String finalPaymentMessage = String.format(DISCOUNT_RATE_MESSAGE, formatCurrency(finalPayment), formattedDiscountRate);
-        System.out.println(finalPaymentMessage);
+        System.out.print(finalPaymentMessage);
     }
 
     public static void printFinalPaymentForChampagne(int finalPayment, double discountRate) {
-        System.out.print(TIP_CHAMPAGNE_MESSAGE.getTipMessage());
         String formattedDiscountRate = String.format(FORMAT_PERCENT, discountRate);
         String finalPaymentMessage = String.format(DISCOUNT_RATE_MESSAGE, formatCurrency(finalPayment), formattedDiscountRate);
-        System.out.println(FINAL_PAYMENT_WIHTOUT_CHAMPAGNE + finalPaymentMessage);
+        lineBreak();
+        System.out.print(FINAL_PAYMENT_WIHTOUT_CHAMPAGNE + finalPaymentMessage);
+        System.out.print(TIP_CHAMPAGNE_MESSAGE.getTipMessage());
+        lineBreak();
     }
 
     public static void printEventBadge(String badge) {
         printWithNewLine(DECEMBER_EVENT_BADGE.getMessage());
-        System.out.println(badge);
+        System.out.print(badge);
         if (!badge.equals(EventBadge.NON.getBadge())) {
             System.out.print(TIP_BADGE_MESSAGE.getTipMessage());
         }
