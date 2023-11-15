@@ -102,10 +102,10 @@ public class OutputView {
         lineBreak();
         System.out.print(FINAL_PAYMENT_WIHTOUT_CHAMPAGNE + finalPaymentMessage);
         System.out.print(TIP_CHAMPAGNE_MESSAGE.getTipMessage());
-        lineBreak();
     }
 
     public static void printEventBadge(String badge) {
+        lineBreak();
         printWithNewLine(DECEMBER_EVENT_BADGE.getMessage());
         System.out.print(badge);
         if (!badge.equals(EventBadge.NON.getBadge())) {
